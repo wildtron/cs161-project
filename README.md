@@ -5,5 +5,11 @@ Collaboration Project<br/>
     Ferrer, Sherwin Jet<br/>
     Escamos, Ivan Mark<br/>
 </p>
-<br/>
-Base from 3D Virtual Cinterlabs
+Base from 3D Virtual Cinterlabs<br>
+
+To make commits and push auto reflect on gh-pages<br>
+edit <pre>.git/config</pre> and add to <pre>[ remote origin ]</pre>
+<pre>
+    push = +refs/heads/master:refs/heads/gh-pages
+    push = +refs/heads/master:refs/heads/master
+</pre>
