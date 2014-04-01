@@ -73,7 +73,8 @@
 					console.log('Cached', objects[i].name, ' program');
 					this.cachedPrograms[objects[i].name] = program;
 				}
-				objects[i].draw(gl, program, this.camera);
+				this.camera.render(gl, program);
+				objects[i].draw(gl, program);
 			}
 		};
 

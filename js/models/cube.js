@@ -1,15 +1,27 @@
 Cube = function (options) {
-	// important for caching :
 	this.name = 'cube';
 
-	// see util.js for other functions
-	this.dimension = util.pixelToN(options.dimension);
-	this.position = util.pixelToN(options.position);
-	// this.position[2] = this.position[2] - 3000;
-	console.log(this.dimension);
-	console.log();
-	this.materialDiffuse = options.materialDiffuse;
-	this.materialDiffuseRGB = util.hexToRGBN(options.materialDiffuse);
+	this.withSize = function (x, y, z) {
+		this.dimension = util.pixelToN([x, y, z]);
+		return this;
+	};
+
+	this.at = function (x, y, z) {
+		this.position = util.pixelToN([x, y, z]);
+		return this;
+	};
+
+	this.using = function (objs) {
+		var i;
+		for (i in objs) {
+			this[i] = objs[i];
+		}
+		return this;
+	};
+
+	this.convertProperties = function () {
+		this.materialDiffuseRGB = util.hexToRGBN(this.materialDiffuse);
+	};
 
 	// vertex
 	this.vertexSource = '\
@@ -42,8 +54,9 @@ Cube = function (options) {
 	}';
 
 	// hook function draw, this will be called by the preymwerk.
-	// gl, program, and camera will be passed
-	this.draw = function (gl, program, camera) {
+	// gl and program will be passed
+	this.draw = function (gl, program) {
+		this.convertProperties();
 		var cube_vertices = [   // Coordinates
 				 1, 1, 1,  -1, 1, 1,  -1,-1, 1,   1,-1, 1, //front
 				 1, 1, 1,   1,-1, 1,   1,-1,-1,   1, 1,-1, //right
@@ -107,9 +120,6 @@ Cube = function (options) {
 		mat4.invert(temp = mat4.create(), modelMatrix);
 		mat4.transpose(temp, temp);
 		gl.uniformMatrix4fv(gl.getUniformLocation(program,'uNormal'), false, temp);
-
-		// THIS IS IMPORTANT: Let the camera setup view matrix, and projection matrix
-		camera.render(gl, program);
 
 		//set-up light and material parameters
 		gl.uniform3f.apply(gl, [gl.getUniformLocation(program, 'uMaterialDiffuse')].concat(this.materialDiffuseRGB));

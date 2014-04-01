@@ -15,67 +15,48 @@
 			console.time('whole');
 
 			// create objects
-			var scene = new Scene(),
-				floor = new Cube({
-					dimension : [3000, 100, 3000],
-					position : [0, 0, 0],
-					materialDiffuse : '#FFF'
-				}),
-				wall1 = new Cube({
-					dimension : [2700, 500, 300],
-					position : [0, 0, 0],
-					materialDiffuse : '#F0F'
-				}),
-				wall2 = new Cube({
-					dimension : [2800, 500, 200],
-					position : [0, 750, -2800],
-					materialDiffuse : '#F0F'
-				}),
-				wall3 = new Cube({
-					dimension : [2800, 500, 200],
-					position : [0, 750, 1000],
-					materialDiffuse : '#F0F'
-				}),
-				wall4 = new Cube({
-					dimension : [2800, 500, 200],
-					position : [0, 750, -1000],
-					materialDiffuse : '#F0F'
-				}),
-				wall5 = new Cube({
-					dimension : [100, 500, 2800],
-					position : [-2700, 750, 0],
-					materialDiffuse : '#F0F'
-				}),
-				divider1 = new Cube({
-					dimension : [50, 500, 700],
-					position : [-1250, 750, -1900],
-					materialDiffuse : '#F00'
-				}),
-				divider2 = new Cube({
-					dimension : [50, 500, 700],
-					position : [250, 750, -1900],
-					materialDiffuse : '#F00'
-				}),
-				divider3 = new Cube({
-					dimension : [50, 500, 700],
-					position : [1600, 750, -1900],
-					materialDiffuse : '#F00'
-				}),
+			var renderer = new Renderer(window.innerWidth, window.innerHeight),
 				camera = new Camera(),
-				renderer = new Renderer(window.innerWidth, window.innerHeight);
+				scene = new Scene(),
+				floor = new Cube()
+					.withSize(3000, 100, 3000)
+					.at(0, 0, 0)
+					.using({materialDiffuse : '#FFF'}),
+				wall2 = new Cube()
+					.withSize(2800, 500, 200)
+					.at(0, 750, -2800)
+					.using({materialDiffuse : '#F0F'}),
+				wall3 = new Cube()
+					.withSize(2800, 500, 200)
+					.at(0, 750, 1000)
+					.using({materialDiffuse : '#F0F'}),
+				wall4 = new Cube()
+					.withSize(2800, 500, 200)
+					.at(0, 750, -1000)
+					.using({materialDiffuse : '#F0F'}),
+				divider1 = new Cube()
+					.withSize(50, 500, 700)
+					.at(-1250, 750, -1900)
+					.using({materialDiffuse : '#F00'}),
+				divider2 = new Cube()
+					.withSize(50, 500, 700)
+					.at(250, 750, -1900)
+					.using({materialDiffuse : '#F00'}),
+				divider3 = new Cube()
+					.withSize(50, 500, 700)
+					.at(1600, 750, -1900)
+					.using({materialDiffuse : '#F00'});
 
-			// add to scene
+			// add all objects here....
+
 			scene.addObject(floor);
-			scene.addObject(wall1);
 			scene.addObject(wall2);
 			scene.addObject(wall3);
 			scene.addObject(wall4);
-			scene.addObject(wall5);
 			scene.addObject(divider1);
 			scene.addObject(divider2);
 			scene.addObject(divider3);
 
-			// add all objects here....
 
 			// append the canvas element
 			document.body.appendChild(renderer.domElement);
