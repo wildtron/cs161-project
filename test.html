@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sample Preymwerk usage. hehe</title>
+		<style type="text/css">
+			html,body{margin:0;padding:0;border:0;}
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript" src="js/gl-matrix-min.js"></script>
+		<script type="text/javascript" src="js/util.js"></script>
+		<script type="text/javascript" src="js/preymwerk.js"></script>
+		<script type="text/javascript" src="js/models/cube.js"></script>
+		<script type="text/javascript">
+			console.time('whole');
+
+			// create objects
+			var scene = new Scene(),
+				floor = new Cube({
+					dimension : [3000, 100, 3000],
+					position : [0, 0, 0],
+					materialDiffuse : '#FFF'
+				}),
+				wall1 = new Cube({
+					dimension : [2700, 500, 300],
+					position : [0, 0, 0],
+					materialDiffuse : '#F0F'
+				}),
+				wall2 = new Cube({
+					dimension : [2800, 500, 200],
+					position : [0, 750, -2800],
+					materialDiffuse : '#F0F'
+				}),
+				wall3 = new Cube({
+					dimension : [2800, 500, 200],
+					position : [0, 750, 1000],
+					materialDiffuse : '#F0F'
+				}),
+				wall4 = new Cube({
+					dimension : [2800, 500, 200],
+					position : [0, 750, -1000],
+					materialDiffuse : '#F0F'
+				}),
+				wall5 = new Cube({
+					dimension : [100, 500, 2800],
+					position : [-2700, 750, 0],
+					materialDiffuse : '#F0F'
+				}),
+				divider1 = new Cube({
+					dimension : [50, 500, 700],
+					position : [-1250, 750, -1900],
+					materialDiffuse : '#F00'
+				}),
+				divider2 = new Cube({
+					dimension : [50, 500, 700],
+					position : [250, 750, -1900],
+					materialDiffuse : '#F00'
+				}),
+				divider3 = new Cube({
+					dimension : [50, 500, 700],
+					position : [1600, 750, -1900],
+					materialDiffuse : '#F00'
+				}),
+				camera = new Camera(),
+				renderer = new Renderer(window.innerWidth, window.innerHeight);
+
+			// add to scene
+			scene.addObject(floor);
+			scene.addObject(wall1);
+			scene.addObject(wall2);
+			scene.addObject(wall3);
+			scene.addObject(wall4);
+			scene.addObject(wall5);
+			scene.addObject(divider1);
+			scene.addObject(divider2);
+			scene.addObject(divider3);
+
+			// add all objects here....
+
+			// append the canvas element
+			document.body.appendChild(renderer.domElement);
+
+			// render the graphics
+			renderer.render(scene, camera);
+
+			// listen for events
+			document.addEventListener('keydown', function (e) {
+				if (camera.move(e))
+					renderer.render();
+			});
+			document.addEventListener('mousewheel', function (e) {
+				if (camera.move(e))
+					renderer.render();
+			});
+			console.timeEnd('whole');
+		</script>
+	</body>
+</html>
