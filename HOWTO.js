@@ -1,11 +1,11 @@
 /**
-	How to create a preymwerk-compatible model:
+	How to create a framework-compatible model:
 
 	let's say we'll create a dog model
  */
 
 Dog = function () {
-	// preymwerk uses this for program caching
+	// framework uses this for program caching
 	this.name = 'dog';
 
 	// uProjection and uView are used by the camera
@@ -27,10 +27,10 @@ Dog = function () {
 		}\
 	';
 
-	// hook function, this will be called by the preymwerk.
+	// hook function, this will be called by the framework.
 	// gl and program will be passed
 	// THIS IS IMPORTANT: Let the camera setup view matrix, and projection matrix, don't mind it
-	this.draw = function (gl, program) {
+	this.render = function (gl, program) {
 		// define variables with var
 		// bind buffers
 		// setup model
