@@ -1,7 +1,12 @@
 Board = function (options) {
+	var modelMatrix = mat4.create(),
+		indexBuffer,
+		indices;
+
+	this.lights = true;
 	this.name = 'board';
 
-	this.withSize = function (x, y, z) {
+	this.withDimension = function (x, y, z) {
 		this.dimension = util.pixelToN([x, y, z]);
 		return this;
 	};
@@ -55,8 +60,7 @@ Board = function (options) {
 
 	// hook function draw, this will be called by the preymwerk.
 	// gl and program will be passed
-	this.draw = function (gl, program) {
-		this.convertProperties();
+	this.render = function (gl, program) {
 		var cube_vertices = [   // Coordinates
 				 1, 1, 1,  -1, 1, 1,  -1,-1, 1,   1,-1, 1, //front
 				 1, 1, 1,   1,-1, 1,   1,-1,-1,   1, 1,-1, //right
@@ -66,28 +70,20 @@ Board = function (options) {
 				 1,-1,-1,  -1,-1,-1,  -1, 1,-1,   1, 1,-1  //back
 			],
 			normals = cube_vertices,
-			/*
-			normals = [   // Normal of each vertex
-				0, 0, 1,   0, 0, 1,   0, 0, 1,   0, 0, 1,  // front
-				1, 0, 0,   1, 0, 0,   1, 0, 0,   1, 0, 0,  // right
-				0, 1, 0,   0, 1, 0,   0, 1, 0,   0, 1, 0,  // up
-			   -1, 0, 0,  -1, 0, 0,  -1, 0, 0,  -1, 0, 0,  // left
-				0,-1, 0,   0,-1, 0,   0,-1, 0,   0,-1, 0,  // down
-				0, 0,-1,   0, 0,-1,   0, 0,-1,   0, 0,-1   // back
-			],*/
-			indices = [	// Indices of the vertices
-				 0, 1, 2,   0, 2, 3,    // front
-				 4, 5, 6,   4, 6, 7,    // right
-				 8, 9,10,   8,10,11,    // up
-				12,13,14,  12,14,15,    // left
-				16,17,18,  16,18,19,    // down
-				20,21,22,  20,22,23     // back
-			],
 			aPosition = gl.getAttribLocation(program, 'aPosition'),
 			aNormal = gl.getAttribLocation(program, 'aNormal'),
-			modelMatrix = mat4.create(),
-			indexBuffer,
 			temp;
+
+		this.convertProperties();
+
+		indices = [	// Indices of the vertices
+			 0, 1, 2,   0, 2, 3,    // front
+			 4, 5, 6,   4, 6, 7,    // right
+			 8, 9,10,   8,10,11,    // up
+			12,13,14,  12,14,15,    // left
+			16,17,18,  16,18,19,    // down
+			20,21,22,  20,22,23     // back
+		];
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(cube_vertices), gl.STATIC_DRAW);
@@ -116,7 +112,6 @@ Board = function (options) {
 		//set-up model matrix
 		mat4.scale(modelMatrix, modelMatrix, this.dimension);
 		mat4.translate(modelMatrix, modelMatrix, this.position);
-		gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uModel'), false, modelMatrix);
 
 		//add normal matrix
 		mat4.invert(temp = mat4.create(), modelMatrix);
@@ -124,12 +119,13 @@ Board = function (options) {
 		gl.uniformMatrix4fv(gl.getUniformLocation(program,'uNormal'), false, temp);
 
 		//set-up light and material parameters
-		gl.uniform3f.apply(gl, [gl.getUniformLocation(program, 'uMaterialDiffuse')].concat(this.materialDiffuseRGB));
 		gl.uniform3f(gl.getUniformLocation(program, 'uLightDiffuse'), 1, 1, 1);
-		gl.uniform3f(gl.getUniformLocation(program, 'uLightDirection'), -1, -2.5, -5.0);
 
-		//draw object
-		gl.enable(gl.DEPTH_TEST);
+	};
+
+	this.animate = function (gl, program) {
+		gl.uniform3f.apply(gl, [gl.getUniformLocation(program, 'uMaterialDiffuse')].concat(this.materialDiffuseRGB));
+		gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uModel'), false, modelMatrix);
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
 		gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_BYTE, 0);
 	};

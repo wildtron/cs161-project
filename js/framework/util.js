@@ -66,22 +66,28 @@
 	util.pixelToN = function (a) {
 		if (a instanceof Array) {
 			return a.map(function (a) {
-				return a / 3000;
+				return a / 1000;
 			});
 		}
-		return a / 3000;
+		return a / 1000;
 	};
+
+	util.degToRad = function (d) {
+        return d * Math.PI / 180;
+    };
+
+	root.requestAnimFrame = (function() {
+		return	root.requestAnimationFrame ||
+			root.webkitRequestAnimationFrame ||
+			root.mozRequestAnimationFrame ||
+			root.oRequestAnimationFrame ||
+			root.msRequestAnimationFrame ||
+			function(/* function FrameRequestCallback */ callback, /* DOMElement Element */ element) {
+				root.setTimeout(callback, 1000/60);
+			};
+	})();
 
 	root.util = util;
 }(this));
 
-window.requestAnimFrame = (function() {
-  return window.requestAnimationFrame ||
-         window.webkitRequestAnimationFrame ||
-         window.mozRequestAnimationFrame ||
-         window.oRequestAnimationFrame ||
-         window.msRequestAnimationFrame ||
-         function(/* function FrameRequestCallback */ callback, /* DOMElement Element */ element) {
-           window.setTimeout(callback, 1000/60);
-         };
-})();
+

@@ -7,10 +7,12 @@
 		</style>
 	</head>
 	<body>
-		<script type="text/javascript" src="js/gl-matrix-min.js"></script>
-		<script type="text/javascript" src="js/util.js"></script>
-		<script type="text/javascript" src="js/preymwerk.js"></script>
-		<script type="text/javascript" src="js/models/cube.js"></script>
+		<script type="text/javascript" src="js/libs/gl-matrix-min.js"></script>
+		<script type="text/javascript" src="js/libs/glMatrix-0.9.5.min.js"></script>
+		<script type="text/javascript" src="js/framework/util.js"></script>
+		<script type="text/javascript" src="js/framework/renderer.js"></script>
+		<script type="text/javascript" src="js/framework/scene.js"></script>
+		<script type="text/javascript" src="js/framework/camera.js"></script>
 		<script type="text/javascript" src="js/models/board.js"></script>
 		<script type="text/javascript">
 			console.time('whole');
@@ -20,190 +22,160 @@
 				ratio = 500, xoffset = 500, yoffset=2000, zoffset=2000,
 				camera = new Camera(),
 				scene = new Scene(),
-				floor = new Board()
-					.withSize(5*ratio, 0.1*ratio, 11*ratio)
-					.at(0+xoffset, 0+yoffset, (5*ratio)+zoffset)
-					.using({materialDiffuse : '#FFF'}),
-				
+
 				boardCarpet = new Board()
-					.withSize(4*ratio, 0.1*ratio, 6*ratio)
+					.withDimension(4*ratio, 0.1*ratio, 6*ratio)
 					.at(0+xoffset, (0.02*ratio)+yoffset, (0*ratio)+zoffset)
 					.using({materialDiffuse : '#7c2121'}),
-				
-				boardWallLeft = new Board()
-					.withSize(0.1*ratio, 1.6*ratio, 11*ratio)
-					.at((-5*ratio)+xoffset, (1.6*ratio)+yoffset, (5*ratio)+zoffset)
-					.using({materialDiffuse : '#EEE'});
-					
-				boardWallTop = new Board()
-					.withSize(5*ratio, 1.6*ratio, 0.1*ratio)
-					.at(0+xoffset, 1.6*ratio+yoffset, -6*ratio+zoffset)
-					.using({materialDiffuse : '#EEE'});
-					
-				boardWallBottom = new Board()
-					.withSize(5*ratio, 1.6*ratio, 0.1*ratio)
-					.at(0+xoffset, 1.6*ratio+yoffset, 6*ratio+zoffset)
-					.using({materialDiffuse : '#EEE'});
-					
-				boardWallRight = new Board()
-					.withSize(0.1*ratio, 1.6*ratio, 11*ratio)
-					.at(5*ratio+xoffset, 1.6*ratio+yoffset, 5*ratio+zoffset)
-					.using({materialDiffuse : '#EEE'});
-						
+
 				boardAirconL = new Board()
-					.withSize(0.3*ratio, 0.3*ratio, 3*ratio)
+					.withDimension(0.3*ratio, 0.3*ratio, 3*ratio)
 					.at(-4.5*ratio+xoffset, 2.8*ratio+yoffset, 0*ratio+zoffset)
 					.using({materialDiffuse : '#EEE'});
-					
+
 				boardAirconR = new Board()
-					.withSize(0.3*ratio, 0.3*ratio, 3*ratio)
+					.withDimension(0.3*ratio, 0.3*ratio, 3*ratio)
 					.at(4.5*ratio+xoffset, 2.8*ratio+yoffset, 0*ratio+zoffset)
 					.using({materialDiffuse : '#EEE'});
-					
+
 				boardDoor = new Board()
-					.withSize(1.3*ratio, 1.5*ratio, 0.2*ratio)
+					.withDimension(1.3*ratio, 1.5*ratio, 0.2*ratio)
 					.at(0+xoffset, 1.5*ratio+yoffset, 6*ratio+zoffset)
 					.using({materialDiffuse : '#895511'});
-					
+
 				boardTV = new Board()
-					.withSize(1.3*ratio, 1*ratio, 0.01*ratio)
+					.withDimension(1.3*ratio, 1*ratio, 0.01*ratio)
 					.at(0+xoffset, 2*ratio+yoffset, -5*ratio+zoffset)
 					.using({materialDiffuse : '#000'});
-					
+
 				boardTable = new Board()
-					.withSize(1.5*ratio, 0.1*ratio, 2.5*ratio)
+					.withDimension(1.5*ratio, 0.1*ratio, 2.5*ratio)
 					.at(0+xoffset, 1*ratio+yoffset, 0+zoffset)
 					.using({materialDiffuse : '#4f3f17'});
-					
+
 				boardTableLeg1 = new Board()
-					.withSize(1.5*ratio, 0.4*ratio, 0.1*ratio)
+					.withDimension(1.5*ratio, 0.4*ratio, 0.1*ratio)
 					.at(0*ratio+xoffset, 0.6*ratio+yoffset, 2*ratio+zoffset)
 					.using({materialDiffuse : '#4f3f17'});
-					
+
 				boardTableLeg2 = new Board()
-					.withSize(1.5*ratio, 0.4*ratio, 0.1*ratio)
+					.withDimension(1.5*ratio, 0.4*ratio, 0.1*ratio)
 					.at(0*ratio+xoffset, 0.6*ratio+yoffset, -2*ratio+zoffset)
 					.using({materialDiffuse : '#4f3f17'});
-					
+
 				shelf1 = new Board()
-					.withSize(1.3*ratio, 0.1*ratio, 0.4*ratio)
+					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
 					.at(-3.1*ratio+xoffset, 2.4*ratio+yoffset, -5.7*ratio+zoffset)
 					.using({materialDiffuse : '#4f3f17'});
-					
+
 				shelf2 = new Board()
-					.withSize(1.3*ratio, 0.1*ratio, 0.4*ratio)
+					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
 					.at(-3.1*ratio+xoffset, 1.6*ratio+yoffset, -5.7*ratio+zoffset)
 					.using({materialDiffuse : '#4f3f17'});
-					
+
 				shelf3 = new Board()
-					.withSize(1.3*ratio, 0.1*ratio, 0.4*ratio)
+					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
 					.at(3.1*ratio+xoffset, 2.4*ratio+yoffset, -5.7*ratio+zoffset)
 					.using({materialDiffuse : '#4f3f17'});
-					
+
 				shelf4 = new Board()
-					.withSize(1.3*ratio, 0.1*ratio, 0.4*ratio)
+					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
 					.at(3.1*ratio+xoffset, 1.6*ratio+yoffset, -5.7*ratio+zoffset)
 					.using({materialDiffuse : '#4f3f17'});
-						
+
 				pShelf1t = new Board()
-					.withSize(1.3*ratio, 0.1*ratio, 0.4*ratio)
+					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
 					.at(3.1*ratio+xoffset, 1.6*ratio+yoffset, 6.3*ratio+zoffset)
 					.using({materialDiffuse : '#4f3f17'});
-					
+
 				pShelf1b = new Board()
-					.withSize(1.3*ratio, 0.1*ratio, 0.4*ratio)
+					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
 					.at(3.1*ratio+xoffset, 0.2*ratio+yoffset, 6.3*ratio+zoffset)
 					.using({materialDiffuse : '#4f3f17'});
-					
+
 				pShelf1l = new Board()
-					.withSize(0.1*ratio, 0.7*ratio, 0.4*ratio)
+					.withDimension(0.1*ratio, 0.7*ratio, 0.4*ratio)
 					.at(1.9*ratio+xoffset, 1.0*ratio+yoffset, 6.3*ratio+zoffset)
 					.using({materialDiffuse : '#4f3f17'});
-					
+
 				pShelf1r = new Board()
-					.withSize(0.1*ratio, 0.7*ratio, 0.4*ratio)
+					.withDimension(0.1*ratio, 0.7*ratio, 0.4*ratio)
 					.at(4.3*ratio+xoffset, 1*ratio+yoffset, 6.3*ratio+zoffset)
 					.using({materialDiffuse : '#4f3f17'});
-							
+
 				pShelf2t = new Board()
-					.withSize(1.3*ratio, 0.1*ratio, 0.4*ratio)
+					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
 					.at(-3.1*ratio+xoffset, 1.6*ratio+yoffset, 6.3*ratio+zoffset)
 					.using({materialDiffuse : '#4f3f17'});
-					
+
 				pShelf2b = new Board()
-					.withSize(1.3*ratio, 0.1*ratio, 0.4*ratio)
+					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
 					.at(-3.1*ratio+xoffset, 0.2*ratio+yoffset, 6.3*ratio+zoffset)
 					.using({materialDiffuse : '#4f3f17'});
-					
+
 				pShelf2l = new Board()
-					.withSize(0.1*ratio, 0.7*ratio, 0.4*ratio)
+					.withDimension(0.1*ratio, 0.7*ratio, 0.4*ratio)
 					.at(-1.9*ratio+xoffset, 1.0*ratio+yoffset, 6.3*ratio+zoffset)
 					.using({materialDiffuse : '#4f3f17'});
-					
+
 				pShelf2r = new Board()
-					.withSize(0.1*ratio, 0.7*ratio, 0.4*ratio)
+					.withDimension(0.1*ratio, 0.7*ratio, 0.4*ratio)
 					.at(-4.3*ratio+xoffset, 1*ratio+yoffset, 6.3*ratio+zoffset)
 					.using({materialDiffuse : '#4f3f17'});
-					
+
 				pchair1 = new Board()
-					.withSize(1.2*ratio, 0.4*ratio, 1*ratio)
+					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
 					.at(-4.3*ratio+xoffset, 0.6*ratio+yoffset, 10.5*ratio+zoffset)
 					.using({materialDiffuse : '#000'});
-					
+
 				pchair2 = new Board()
-					.withSize(1.2*ratio, 0.4*ratio, 1*ratio)
+					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
 					.at(-4.3*ratio+xoffset, 0.6*ratio+yoffset, 12.7*ratio+zoffset)
 					.using({materialDiffuse : '#000'});
-					
+
 				pchair3 = new Board()
-					.withSize(1.2*ratio, 0.4*ratio, 1*ratio)
+					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
 					.at(-4.3*ratio+xoffset, 0.6*ratio+yoffset, 8.3*ratio+zoffset)
 					.using({materialDiffuse : '#000'});
-						
+
 				pchair4 = new Board()
-					.withSize(1.2*ratio, 0.4*ratio, 1*ratio)
+					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
 					.at(4.3*ratio+xoffset, 0.6*ratio+yoffset, 10.5*ratio+zoffset)
 					.using({materialDiffuse : '#000'});
-					
+
 				pchair5 = new Board()
-					.withSize(1.2*ratio, 0.4*ratio, 1*ratio)
+					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
 					.at(4.3*ratio+xoffset, 0.6*ratio+yoffset, 12.7*ratio+zoffset)
 					.using({materialDiffuse : '#000'});
-					
+
 				pchair6 = new Board()
-					.withSize(1.2*ratio, 0.4*ratio, 1*ratio)
+					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
 					.at(4.3*ratio+xoffset, 0.6*ratio+yoffset, 8.3*ratio+zoffset)
 					.using({materialDiffuse : '#000'});
-					
+
 				pcarpet = new Board()
-					.withSize(1.2*ratio, 0.1*ratio, 4.5*ratio)
+					.withDimension(1.2*ratio, 0.1*ratio, 4.5*ratio)
 					.at(0*ratio+xoffset, 0.02*ratio+yoffset,11*ratio+zoffset)
 					.using({materialDiffuse : '#7c2121'});
-					
+
 				pdispenser = new Board()
-					.withSize(0.7*ratio, 1.3*ratio, 0.8*ratio)
+					.withDimension(0.7*ratio, 1.3*ratio, 0.8*ratio)
 					.at(-4*ratio+xoffset, 1.2*ratio+yoffset, 14.8*ratio+zoffset)
 					.using({materialDiffuse : '#F00'});
-					
-					
-					
+
+
+
 			// add all objects here....
 
-			scene.addObject(floor);
-			
-			scene.addObject(boardWallLeft);
-			scene.addObject(boardWallTop);
-			scene.addObject(boardWallRight);
-			scene.addObject(boardWallBottom);
-			
+
 			scene.addObject(boardDoor);
-			
+
 			//board room
 			scene.addObject(boardCarpet);
 			scene.addObject(boardTV);
 			scene.addObject(boardAirconL);
 			scene.addObject(boardAirconR);
-			
+
 			scene.addObject(boardTable);
 			scene.addObject(boardTableLeg1);
 			scene.addObject(boardTableLeg2);
@@ -212,7 +184,7 @@
 			scene.addObject(shelf2);
 			scene.addObject(shelf3);
 			scene.addObject(shelf4);
-			
+
 			//patio
 			scene.addObject(pShelf1t);
 			scene.addObject(pShelf1b);
@@ -237,15 +209,6 @@
 			// render the graphics
 			renderer.render(scene, camera);
 
-			// listen for events
-			document.addEventListener('keydown', function (e) {
-				if (camera.move(e))
-					renderer.render();
-			});
-			document.addEventListener('mousewheel', function (e) {
-				if (camera.move(e))
-					renderer.render();
-			});
 			console.timeEnd('whole');
 		</script>
 	</body>
