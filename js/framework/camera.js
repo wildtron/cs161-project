@@ -35,6 +35,7 @@ var Camera = function () {
 		gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uView'), false, mvMatrix);
 
 		if (program.lights) {
+			// gl.uniform3f(gl.getUniformLocation(program, 'uLightDirection'), -1.0,-2.5,-5);
 			gl.uniform3f(gl.getUniformLocation(program, 'uLightDirection'), -xPos, -yPos, -zPos);
 		}
 

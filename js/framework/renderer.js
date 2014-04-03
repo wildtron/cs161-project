@@ -74,13 +74,10 @@ var Renderer = function (width, height) {
 			gl = this.GL,
 			program;
 		while (i--) {
-			if (!(program = this.cachedPrograms[objects[i].name])) {
-				program = compileShadersAndGetProgram(gl, objects[i]);
-				if (objects[i].lights)
-					program.lights = objects[i].lights;
-				this.cachedPrograms[objects[i].name] = program;
-				console.log('Cached', objects[i].name, ' program');
-			}
+			program = compileShadersAndGetProgram(gl, objects[i]);
+			objects[i].program = program;
+			if (objects[i].lights)
+				program.lights = objects[i].lights;
 			gl.useProgram(program);
 			this.camera.render(gl, program);
 			objects[i].render(gl, program);
@@ -99,10 +96,12 @@ var Renderer = function (width, height) {
 		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 		gl.enable(gl.DEPTH_TEST);
 		while (i--) {
-			program = this.cachedPrograms[objects[i].name];
+			program = objects[i].program;
 			gl.useProgram(program);
-			objects[i].animate(gl, program);
 			this.camera.animate(gl, program);
+			objects[i].animate(gl, program);
+			gl.flush();
+			gl.finish();
 		}
 		setTimeout(function () {
 			requestAnimFrame(function () {
