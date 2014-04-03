@@ -24,22 +24,22 @@
 						.at(unit * 5, 0, unit * 26)
 						.using({textureSrc : 'wood-floor.png'}),
 					// emergency exit floor
-					new Cube()
-						.withDimension(unit * 2, wallThickness, unit * 2)
-						.at(-unit * 0, 0, -unit * 26)
-						.using({materialDiffuse : '#F00'}),
+					// new Cube()
+						// .withDimension(unit * 2, wallThickness, unit * 2)
+						// .at(-unit * 0, 0, -unit * 26)
+						// .using({materialDiffuse : '#F00'}),
 					// mens cr
 					new Cube()
 						.withDimension(unit * 6, wallThickness, unit * 3)
 						.at(-unit * 22, 10, unit * 23)
-						.using({materialDiffuse: '#2980b9', solid : true}),
-						// .using({textureSrc: 'cr-floor.png'}),,
+						// .using({materialDiffuse: '#2980b9', solid : true}),
+						.using({textureSrc: 'cr-floor.png'}),
 					// womens cr
 					new Cube()
 						.withDimension(unit * 6, wallThickness, unit * 3)
 						.at(unit * 22, 10, unit * 23)
-						.using({materialDiffuse: '#2980b9', solid : true}),
-						// .using({textureSrc: 'cr-floor.png'}),
+						// .using({materialDiffuse: '#2980b9', solid : true}),
+						.using({textureSrc: 'cr-floor.png'}),
 				],
 				walls = [
 					// vertical walls
@@ -169,185 +169,243 @@
 			}
 			i = walls.length;
 			while (i--) {
-				// walls[i].using({textureSrc : 'wall.png'});
-				scene.addObject(walls[i].using({materialDiffuse : '#FFF'}));
+				// scene.addObject(walls[i].using({materialDiffuse : '#FFF'}));
+				scene.addObject(walls[i].using({textureSrc : 'wall.png'}));
 			}
 			i = doors.length;
 			while (i--) {
-				scene.addObject(doors[i].withDimension(unit * 2, 500, wallThickness + 10).using({materialDiffuse : '#bdc3c7', solid : true}));
+				// scene.addObject(doors[i].withDimension(unit * 2, 500, wallThickness + 10).using({materialDiffuse : '#bdc3c7', solid : true}));
 			}
 			for (i = 0; i < 10; i++) {
-				scene.addObject(
-					new Cube()
-						.withDimension(unit, 50, unit * 2)
-						.at(-unit * 6 + (unit * i), (unit / 2) * i - ((unit / 2) * 10), unit * 26)
-						.using({materialDiffuse : '#95a5a6'})
-				);
-				scene.addObject(
-					new Cube()
-						.withDimension(unit, 50, unit * 2)
-						.at(-unit * 12 + (unit * i), (unit / 2) * i - ((unit / 2) * 10), -unit * 26)
-						.using({materialDiffuse : '#F00'})
-				);
+				// scene.addObject(
+					// new Cube()
+						// .withDimension(unit, 50, unit * 2)
+						// .at(-unit * 6 + (unit * i), (unit / 2) * i - ((unit / 2) * 10), unit * 26)
+						// .using({materialDiffuse : '#95a5a6'})
+				// );
+				// scene.addObject(
+					// new Cube()
+						// .withDimension(unit, 50, unit * 2)
+						// .at(-unit * 12 + (unit * i), (unit / 2) * i - ((unit / 2) * 10), -unit * 26)
+						// .using({materialDiffuse : '#F00'})
+				// );
 			}
 		},
 
 		drawPatio = function () {
 			var ratio = unit,
 				xoffset = -unit * 20,
-				yoffset = 20,
+				yoffset = unit * 0.2,
 				zoffset = -unit * 14,
-				CubeCarpet = new Cube()
+				boardCarpet = new Cube()
 					.withDimension(4*ratio, 0.1*ratio, 6*ratio)
 					.at(0+xoffset, (0.02*ratio)+yoffset, (0*ratio)+zoffset)
-					.using({materialDiffuse : '#7c2121'}),
+					.using({textureSrc : 'carpet.jpg'}),
 
-				CubeAirconL = new Cube()
+				boardAirconL = new Cube()
 					.withDimension(0.3*ratio, 0.3*ratio, 3*ratio)
 					.at(-4.5*ratio+xoffset, 2.8*ratio+yoffset, 0*ratio+zoffset)
-					.using({materialDiffuse : '#EEE'})
+					.using({textureSrc : 'aircon1.jpg'}),
 
-				CubeAirconR = new Cube()
+				boardAirconR = new Cube()
 					.withDimension(0.3*ratio, 0.3*ratio, 3*ratio)
 					.at(4.5*ratio+xoffset, 2.8*ratio+yoffset, 0*ratio+zoffset)
-					.using({materialDiffuse : '#EEE'}),
+					.using({textureSrc : 'aircon1.jpg'}),
 
-				CubeDoor = new Cube()
+				boardDoor = new Cube()
 					.withDimension(1.3*ratio, 1.5*ratio, 0.2*ratio)
 					.at(0+xoffset, 1.5*ratio+yoffset, 6*ratio+zoffset)
-					.using({materialDiffuse : '#895511'}),
+					.using({textureSrc : 'floor.png'}),
 
-				CubeTV = new Cube()
+				boardTV = new Cube()
 					.withDimension(1.3*ratio, 1*ratio, 0.01*ratio)
 					.at(0+xoffset, 2*ratio+yoffset, -5*ratio+zoffset)
-					.using({materialDiffuse : '#000'}),
+					.using({textureSrc : 'leather2.jpg'}),
 
-				CubeTable = new Cube()
+				boardTable = new Cube()
 					.withDimension(1.5*ratio, 0.1*ratio, 2.5*ratio)
 					.at(0+xoffset, 1*ratio+yoffset, 0+zoffset)
-					.using({materialDiffuse : '#4f3f17'}),
+					.using({textureSrc : 'wood.jpg'}),
 
-				CubeTableLeg1 = new Cube()
+				boardTableLeg1 = new Cube()
 					.withDimension(1.5*ratio, 0.4*ratio, 0.1*ratio)
 					.at(0*ratio+xoffset, 0.6*ratio+yoffset, 2*ratio+zoffset)
-					.using({materialDiffuse : '#4f3f17'}),
+					.using({textureSrc : 'wood.jpg'}),
 
-				CubeTableLeg2 = new Cube()
+				boardTableLeg2 = new Cube()
 					.withDimension(1.5*ratio, 0.4*ratio, 0.1*ratio)
 					.at(0*ratio+xoffset, 0.6*ratio+yoffset, -2*ratio+zoffset)
-					.using({materialDiffuse : '#4f3f17'}),
+					.using({textureSrc : 'wood.jpg'}),
 
 				shelf1 = new Cube()
 					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
 					.at(-3.1*ratio+xoffset, 2.4*ratio+yoffset, -5.7*ratio+zoffset)
-					.using({materialDiffuse : '#4f3f17'}),
+					.using({textureSrc : 'wood.jpg'}),
 
 				shelf2 = new Cube()
 					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
 					.at(-3.1*ratio+xoffset, 1.6*ratio+yoffset, -5.7*ratio+zoffset)
-					.using({materialDiffuse : '#4f3f17'}),
+					.using({textureSrc : 'wood.jpg'}),
 
 				shelf3 = new Cube()
 					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
 					.at(3.1*ratio+xoffset, 2.4*ratio+yoffset, -5.7*ratio+zoffset)
-					.using({materialDiffuse : '#4f3f17'}),
+					.using({textureSrc : 'wood.jpg'}),
 
 				shelf4 = new Cube()
 					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
 					.at(3.1*ratio+xoffset, 1.6*ratio+yoffset, -5.7*ratio+zoffset)
-					.using({materialDiffuse : '#4f3f17'}),
+					.using({textureSrc : 'wood.jpg'}),
 
 				pShelf1t = new Cube()
 					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
 					.at(3.1*ratio+xoffset, 1.6*ratio+yoffset, 6.3*ratio+zoffset)
-					.using({materialDiffuse : '#4f3f17'}),
+					.using({textureSrc : 'wood.jpg'}),
 
 				pShelf1b = new Cube()
 					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
 					.at(3.1*ratio+xoffset, 0.2*ratio+yoffset, 6.3*ratio+zoffset)
-					.using({materialDiffuse : '#4f3f17'}),
+					.using({textureSrc : 'wood.jpg'}),
 
 				pShelf1l = new Cube()
 					.withDimension(0.1*ratio, 0.7*ratio, 0.4*ratio)
 					.at(1.9*ratio+xoffset, 1.0*ratio+yoffset, 6.3*ratio+zoffset)
-					.using({materialDiffuse : '#4f3f17'}),
+					.using({textureSrc : 'wood.jpg'}),
 
 				pShelf1r = new Cube()
 					.withDimension(0.1*ratio, 0.7*ratio, 0.4*ratio)
 					.at(4.3*ratio+xoffset, 1*ratio+yoffset, 6.3*ratio+zoffset)
-					.using({materialDiffuse : '#4f3f17'}),
+					.using({textureSrc : 'wood.jpg'}),
 
 				pShelf2t = new Cube()
 					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
 					.at(-3.1*ratio+xoffset, 1.6*ratio+yoffset, 6.3*ratio+zoffset)
-					.using({materialDiffuse : '#4f3f17'}),
+					.using({textureSrc : 'wood.jpg'}),
 
 				pShelf2b = new Cube()
 					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
 					.at(-3.1*ratio+xoffset, 0.2*ratio+yoffset, 6.3*ratio+zoffset)
-					.using({materialDiffuse : '#4f3f17'}),
+					.using({textureSrc : 'wood.jpg'}),
 
 				pShelf2l = new Cube()
 					.withDimension(0.1*ratio, 0.7*ratio, 0.4*ratio)
 					.at(-1.9*ratio+xoffset, 1.0*ratio+yoffset, 6.3*ratio+zoffset)
-					.using({materialDiffuse : '#4f3f17'}),
+					.using({textureSrc : 'wood.jpg'}),
 
 				pShelf2r = new Cube()
 					.withDimension(0.1*ratio, 0.7*ratio, 0.4*ratio)
 					.at(-4.3*ratio+xoffset, 1*ratio+yoffset, 6.3*ratio+zoffset)
-					.using({materialDiffuse : '#4f3f17'}),
+					.using({textureSrc : 'wood.jpg'}),
 
-				pchair1 = new Cube()
+				ptable1 = new Cube()
 					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
 					.at(-4.3*ratio+xoffset, 0.6*ratio+yoffset, 10.5*ratio+zoffset)
-					.using({materialDiffuse : '#000'}),
+					.using({textureSrc : 'leather2.jpg'}),
+
+				ptable2 = new Cube()
+					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
+					.at(4.3*ratio+xoffset, 0.6*ratio+yoffset, 10.5*ratio+zoffset)
+					.using({textureSrc : 'leather2.jpg'}),
 
 				pchair2 = new Cube()
 					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
 					.at(-4.3*ratio+xoffset, 0.6*ratio+yoffset, 12.7*ratio+zoffset)
-					.using({materialDiffuse : '#000'}),
+					.using({textureSrc : 'chair2.jpg'}),
+
+				pchair2b = new Cube()
+					.withDimension(0.2*ratio, 0.6*ratio, 1*ratio)
+					.at(-5.3*ratio+xoffset, 1*ratio+yoffset, 12.7*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
+
+				pchair2c = new Cube()
+					.withDimension(1*ratio, 0.4*ratio, 0.16*ratio)
+					.at(-4.3*ratio+xoffset, 1*ratio+yoffset, 13.6*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
+
+				pchair2d = new Cube()
+					.withDimension(1*ratio, 0.4*ratio, 0.16*ratio)
+					.at(-4.3*ratio+xoffset, 1*ratio+yoffset, 11.8*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
 
 				pchair3 = new Cube()
 					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
 					.at(-4.3*ratio+xoffset, 0.6*ratio+yoffset, 8.3*ratio+zoffset)
-					.using({materialDiffuse : '#000'}),
+					.using({textureSrc : 'chair2.jpg'}),
+
+				pchair3b = new Cube()
+					.withDimension(0.2*ratio, 0.6*ratio, 1*ratio)
+					.at(-5.3*ratio+xoffset, 1*ratio+yoffset, 8.3*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
+
+				pchair3c = new Cube()
+					.withDimension(1*ratio, 0.4*ratio, 0.16*ratio)
+					.at(-4.3*ratio+xoffset, 1*ratio+yoffset, 9.2*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
+
+				pchair3d = new Cube()
+					.withDimension(1*ratio, 0.4*ratio, 0.16*ratio)
+					.at(-4.3*ratio+xoffset, 1*ratio+yoffset, 7.4*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
 
 				pchair4 = new Cube()
 					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
-					.at(4.3*ratio+xoffset, 0.6*ratio+yoffset, 10.5*ratio+zoffset)
-					.using({materialDiffuse : '#000'}),
+					.at(4.3*ratio+xoffset, 0.6*ratio+yoffset, 8.3*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
+
+				pchair4b = new Cube()
+					.withDimension(0.2*ratio, 0.6*ratio, 1*ratio)
+					.at(5.3*ratio+xoffset, 1*ratio+yoffset, 8.3*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
+
+				pchair4c = new Cube()
+					.withDimension(1*ratio, 0.4*ratio, 0.16*ratio)
+					.at(4.3*ratio+xoffset, 1*ratio+yoffset, 9.2*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
+
+				pchair4d = new Cube()
+					.withDimension(1*ratio, 0.4*ratio, 0.16*ratio)
+					.at(4.3*ratio+xoffset, 1*ratio+yoffset, 7.4*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
 
 				pchair5 = new Cube()
 					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
 					.at(4.3*ratio+xoffset, 0.6*ratio+yoffset, 12.7*ratio+zoffset)
-					.using({materialDiffuse : '#000'}),
+					.using({textureSrc : 'chair2.jpg'}),
 
-				pchair6 = new Cube()
-					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
-					.at(4.3*ratio+xoffset, 0.6*ratio+yoffset, 8.3*ratio+zoffset)
-					.using({materialDiffuse : '#000'}),
+				pchair5b = new Cube()
+					.withDimension(0.2*ratio, 0.6*ratio, 1*ratio)
+					.at(5.3*ratio+xoffset, 1*ratio+yoffset, 12.7*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
 
+				pchair5c = new Cube()
+					.withDimension(1*ratio, 0.4*ratio, 0.16*ratio)
+					.at(4.3*ratio+xoffset, 1*ratio+yoffset, 13.6*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
+
+				pchair5d = new Cube()
+					.withDimension(1*ratio, 0.4*ratio, 0.16*ratio)
+					.at(4.3*ratio+xoffset, 1*ratio+yoffset, 11.8*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
 				pcarpet = new Cube()
 					.withDimension(1.2*ratio, 0.1*ratio, 4.5*ratio)
 					.at(0*ratio+xoffset, 0.02*ratio+yoffset,11*ratio+zoffset)
-					.using({materialDiffuse : '#7c2121'}),
+					.using({textureSrc : 'carpet.jpg'}),
 
 				pdispenser = new Cube()
 					.withDimension(0.7*ratio, 1.3*ratio, 0.8*ratio)
 					.at(-4*ratio+xoffset, 1.2*ratio+yoffset, 14.8*ratio+zoffset)
-					.using({materialDiffuse : '#F00'});
+					.using({textureSrc : 'coke.png'});
 
-			scene.addObject(CubeDoor);
 
 			//Cube room
-			scene.addObject(CubeCarpet);
-			scene.addObject(CubeTV);
-			scene.addObject(CubeAirconL);
-			scene.addObject(CubeAirconR);
+			scene.addObject(boardCarpet);
+			scene.addObject(boardTV);
+			scene.addObject(boardAirconL);
+			scene.addObject(boardAirconR);
 
-			scene.addObject(CubeTable);
-			scene.addObject(CubeTableLeg1);
-			scene.addObject(CubeTableLeg2);
+			scene.addObject(boardTable);
+			scene.addObject(boardTableLeg1);
+			scene.addObject(boardTableLeg2);
 
 			scene.addObject(shelf1);
 			scene.addObject(shelf2);
@@ -363,23 +421,115 @@
 			scene.addObject(pShelf2b);
 			scene.addObject(pShelf2l);
 			scene.addObject(pShelf2r);
-			scene.addObject(pchair1);
+			scene.addObject(ptable1);
+			scene.addObject(ptable2);
 			scene.addObject(pchair2);
+			scene.addObject(pchair2b);
+			scene.addObject(pchair2c);
+			scene.addObject(pchair2d);
 			scene.addObject(pchair3);
+			scene.addObject(pchair3b);
+			scene.addObject(pchair3c);
+			scene.addObject(pchair3d);
 			scene.addObject(pchair4);
+			scene.addObject(pchair4b);
+			scene.addObject(pchair4c);
+			scene.addObject(pchair4d);
 			scene.addObject(pchair5);
-			scene.addObject(pchair6);
+			scene.addObject(pchair5b);
+			scene.addObject(pchair5c);
+			scene.addObject(pchair5d);
 			scene.addObject(pcarpet);
 			scene.addObject(pdispenser);
+		},
+
+		drawKitchen = function(){
+			var ratio = unit-4,
+				xoffset = unit * 23,
+				yoffset = unit * 0.2,
+				zoffset = unit * 10,
+
+				floor = new Cube()
+					.withDimension(3*ratio, 0.1*ratio, 5*ratio)
+					.at(0+xoffset, 0+yoffset, (5*ratio)+zoffset)
+					.using({textureSrc : 'tile6.jpg'}),
+
+				kWallLeft = new Cube()
+					.withDimension(0.1*ratio, 1.6*ratio, 3*ratio)
+					.at(-3*ratio+xoffset, (1.6*ratio)+yoffset, 3*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
+
+				kWallTop = new Cube()
+					.withDimension(3*ratio, 1.6*ratio, 0.1*ratio)
+					.at(0*ratio+xoffset, 1.6*ratio+yoffset, 0*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
+
+				kWallRight = new Cube()
+					.withDimension(0.1*ratio, 1.6*ratio, 5*ratio)
+					.at(3*ratio+xoffset, 1.6*ratio+yoffset, 5*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
+
+				kCounter1 = new Cube()
+					.withDimension(0.8*ratio, 0.8*ratio, 2*ratio)
+					.at(2.1*ratio+xoffset, 0.9*ratio+yoffset, 2.3*ratio+zoffset)
+					.using({textureSrc : 'tile2.jpg'}),
+
+				kSink = new Cube()
+					.withDimension(0.8*ratio, 0.2*ratio, 0.8*ratio)
+					.at(0.5*ratio+xoffset, 1.4*ratio+yoffset, 1*ratio+zoffset)
+					.using({textureSrc : 'tile7.jpg'}),
+
+				kFaucet = new Cube()
+					.withDimension(0.1*ratio, 0.1*ratio, 0.2*ratio)
+					.at(0.5*ratio+xoffset, 1.9*ratio+yoffset, 0.6*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
+
+				kCounter2 = new Cube()
+					.withDimension(1.27*ratio, 0.8*ratio, 0.8*ratio)
+					.at(-1.6*ratio+xoffset, 0.9*ratio+yoffset, 1*ratio+zoffset)
+					.using({textureSrc : 'tile2.jpg'}),
+
+				kRefBottom = new Cube()
+					.withDimension(0.8*ratio, 1.2*ratio, 0.7*ratio)
+					.at(2.1*ratio+xoffset, 0.9*ratio+yoffset, 5*ratio+zoffset)
+					.using({textureSrc : 'ref2.png'}),
+
+				kRefTop = new Cube()
+					.withDimension(0.8*ratio, 0.5*ratio, 0.7*ratio)
+					.at(2.1*ratio+xoffset, 2.6*ratio+yoffset, 5*ratio+zoffset)
+					.using({textureSrc : 'ref2.png'}),
+
+				kCounter3 = new Cube()
+					.withDimension(0.8*ratio, 0.8*ratio, 0.8*ratio)
+					.at(2.1*ratio+xoffset, 0.9*ratio+yoffset, 6.5*ratio+zoffset)
+					.using({textureSrc : 'dwasher2.jpg'}),
+
+				kOven = new Cube()
+					.withDimension(0.5*ratio, 0.3*ratio, 0.5*ratio)
+					.at(2.1*ratio+xoffset, 2*ratio+yoffset, 3.4*ratio+zoffset)
+					.using({textureSrc : 'oven1.jpg'});
+
+
+			// add all objects here....
+
+			scene.addObject(floor);
+
+			scene.addObject(kCounter1);
+			scene.addObject(kCounter2);
+			scene.addObject(kCounter3);
+			scene.addObject(kSink);
+			scene.addObject(kFaucet);
+			scene.addObject(kRefBottom);
+			scene.addObject(kRefTop);
+			scene.addObject(kOven);
 		};
 
 	drawStructure();
 	drawPatio();
+	drawKitchen();
 
 	// append the canvas element
 	document.body.appendChild(renderer.domElement);
-
-	console.log(scene.objects.length);
 
 	// render the graphics
 	renderer.render(scene, camera, 16);

@@ -167,11 +167,6 @@ Cube = function () {
 				gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
 				gl.bindTexture(gl.TEXTURE_2D, null);
 				image1Ready = true;
-
-
-				gl.activeTexture(gl.TEXTURE0);
-				gl.bindTexture(gl.TEXTURE_2D, texture);
-				gl.uniform1i(gl.getUniformLocation(program, 'uSampler'), 0);
 			};
 			temp.src = 'images/textures/' + this.textureSrc;
 		}
@@ -203,6 +198,9 @@ Cube = function () {
 
 	this.animate = function (gl, program) {
 		if (this.textureSrc) {
+			gl.activeTexture(gl.TEXTURE0);
+			gl.bindTexture(gl.TEXTURE_2D, texture);
+			gl.uniform1i(gl.getUniformLocation(program, 'uSampler'), 0);
 			if (image1Ready) {
 				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
 				gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
