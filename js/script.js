@@ -190,211 +190,198 @@
 		},
 
 		drawPatio = function () {
-			var ratio = unit,
+			var ratio = unit - 4,
 				xoffset = -unit * 20,
 				yoffset = unit * 0.2,
 				zoffset = -unit * 14,
 				boardCarpet = new Cube()
-					.withDimension(4*ratio, 0.1*ratio, 6*ratio)
-					.at(0+xoffset, (0.02*ratio)+yoffset, (0*ratio)+zoffset)
+					.withDimension(6*ratio, 0.1*ratio, 4*ratio)
+					.at(0+xoffset, (0.02*ratio)+yoffset, (-1.1*ratio)+zoffset)
 					.using({textureSrc : 'carpet.jpg'}),
 
 				boardAirconL = new Cube()
-					.withDimension(0.3*ratio, 0.3*ratio, 3*ratio)
-					.at(-4.5*ratio+xoffset, 2.8*ratio+yoffset, 0*ratio+zoffset)
+					.withDimension(3*ratio, 0.3*ratio, 0.3*ratio)
+					.at(-3*ratio+xoffset, 5*ratio+yoffset, 3.5*ratio+zoffset)
 					.using({textureSrc : 'aircon1.jpg'}),
 
 				boardAirconR = new Cube()
-					.withDimension(0.3*ratio, 0.3*ratio, 3*ratio)
-					.at(4.5*ratio+xoffset, 2.8*ratio+yoffset, 0*ratio+zoffset)
+					.withDimension(3*ratio, 0.3*ratio, 0.3*ratio)
+					.at(-3*ratio+xoffset, 5*ratio+yoffset, -5.5*ratio+zoffset)
 					.using({textureSrc : 'aircon1.jpg'}),
 
-				boardDoor = new Cube()
-					.withDimension(1.3*ratio, 1.5*ratio, 0.2*ratio)
-					.at(0+xoffset, 1.5*ratio+yoffset, 6*ratio+zoffset)
-					.using({textureSrc : 'floor.png'}),
-
 				boardTV = new Cube()
-					.withDimension(1.3*ratio, 1*ratio, 0.01*ratio)
-					.at(0+xoffset, 2*ratio+yoffset, -5*ratio+zoffset)
+					.withDimension(0.01*ratio, 1*ratio, 1.3*ratio)
+					.at(-5.5*ratio+xoffset, 3*ratio+yoffset, -1*ratio+zoffset)
 					.using({textureSrc : 'leather2.jpg'}),
 
 				boardTable = new Cube()
-					.withDimension(1.5*ratio, 0.1*ratio, 2.5*ratio)
-					.at(0+xoffset, 1*ratio+yoffset, 0+zoffset)
+					.withDimension(2.5*ratio, 0.1*ratio, 1.5*ratio)
+					.at(0+xoffset, 1*ratio+yoffset, -0.8*ratio+zoffset)
 					.using({textureSrc : 'wood.jpg'}),
 
 				boardTableLeg1 = new Cube()
-					.withDimension(1.5*ratio, 0.4*ratio, 0.1*ratio)
-					.at(0*ratio+xoffset, 0.6*ratio+yoffset, 2*ratio+zoffset)
+					.withDimension(0.1*ratio, 0.4*ratio, 1.5*ratio)
+					.at(2*ratio+xoffset, 0.6*ratio+yoffset, -0.75*ratio+zoffset)
 					.using({textureSrc : 'wood.jpg'}),
 
 				boardTableLeg2 = new Cube()
-					.withDimension(1.5*ratio, 0.4*ratio, 0.1*ratio)
-					.at(0*ratio+xoffset, 0.6*ratio+yoffset, -2*ratio+zoffset)
+					.withDimension(0.1*ratio, 0.4*ratio, 1.5*ratio)
+					.at(-2*ratio+xoffset, 0.6*ratio+yoffset, -0.75*ratio+zoffset)
 					.using({textureSrc : 'wood.jpg'}),
 
 				shelf1 = new Cube()
-					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
-					.at(-3.1*ratio+xoffset, 2.4*ratio+yoffset, -5.7*ratio+zoffset)
+					.withDimension(0.4*ratio, 0.1*ratio, 1.3*ratio)
+					.at(-5.5*ratio+xoffset, 3.4*ratio+yoffset, -3.8*ratio+zoffset)
 					.using({textureSrc : 'wood.jpg'}),
 
 				shelf2 = new Cube()
-					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
-					.at(-3.1*ratio+xoffset, 1.6*ratio+yoffset, -5.7*ratio+zoffset)
+					.withDimension(0.4*ratio, 0.1*ratio, 1.3*ratio)
+					.at(-5.5*ratio+xoffset, 2.6*ratio+yoffset, -3.8*ratio+zoffset)
 					.using({textureSrc : 'wood.jpg'}),
 
 				shelf3 = new Cube()
-					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
-					.at(3.1*ratio+xoffset, 2.4*ratio+yoffset, -5.7*ratio+zoffset)
+					.withDimension(0.4*ratio, 0.1*ratio, 1.3*ratio)
+					.at(-5.5*ratio+xoffset, 3.4*ratio+yoffset, 2*ratio+zoffset)
 					.using({textureSrc : 'wood.jpg'}),
 
 				shelf4 = new Cube()
-					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
-					.at(3.1*ratio+xoffset, 1.6*ratio+yoffset, -5.7*ratio+zoffset)
+					.withDimension(0.4*ratio, 0.1*ratio, 1.3*ratio)
+					.at(-5.5*ratio+xoffset, 2.6*ratio+yoffset, 2*ratio+zoffset)
 					.using({textureSrc : 'wood.jpg'}),
 
 				pShelf1t = new Cube()
-					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
-					.at(3.1*ratio+xoffset, 1.6*ratio+yoffset, 6.3*ratio+zoffset)
+					.withDimension(0.4*ratio, 0.1*ratio, 1.3*ratio)
+					.at(7.1*ratio+xoffset, 1.6*ratio+yoffset, 1.9*ratio+zoffset)
 					.using({textureSrc : 'wood.jpg'}),
 
 				pShelf1b = new Cube()
-					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
-					.at(3.1*ratio+xoffset, 0.2*ratio+yoffset, 6.3*ratio+zoffset)
+					.withDimension(0.4*ratio, 0.1*ratio, 1.3*ratio)
+					.at(7.1*ratio+xoffset, 0.2*ratio+yoffset, 1.9*ratio+zoffset)
 					.using({textureSrc : 'wood.jpg'}),
 
 				pShelf1l = new Cube()
-					.withDimension(0.1*ratio, 0.7*ratio, 0.4*ratio)
-					.at(1.9*ratio+xoffset, 1.0*ratio+yoffset, 6.3*ratio+zoffset)
+					.withDimension(0.4*ratio, 0.7*ratio, 0.1*ratio)
+					.at(7.1*ratio+xoffset, 1.0*ratio+yoffset, 3.05*ratio+zoffset)
 					.using({textureSrc : 'wood.jpg'}),
 
 				pShelf1r = new Cube()
-					.withDimension(0.1*ratio, 0.7*ratio, 0.4*ratio)
-					.at(4.3*ratio+xoffset, 1*ratio+yoffset, 6.3*ratio+zoffset)
+					.withDimension(0.4*ratio, 0.7*ratio, 0.1*ratio)
+					.at(7.1*ratio+xoffset, 1*ratio+yoffset, 0.7*ratio+zoffset)
 					.using({textureSrc : 'wood.jpg'}),
-
+				
 				pShelf2t = new Cube()
-					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
-					.at(-3.1*ratio+xoffset, 1.6*ratio+yoffset, 6.3*ratio+zoffset)
+					.withDimension(0.4*ratio, 0.1*ratio, 1.3*ratio)
+					.at(7.1*ratio+xoffset, 1.6*ratio+yoffset, -5.9*ratio+zoffset)
 					.using({textureSrc : 'wood.jpg'}),
 
 				pShelf2b = new Cube()
-					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
-					.at(-3.1*ratio+xoffset, 0.2*ratio+yoffset, 6.3*ratio+zoffset)
+					.withDimension(0.4*ratio, 0.1*ratio, 1.3*ratio)
+					.at(7.1*ratio+xoffset, 0.2*ratio+yoffset, -5.9*ratio+zoffset)
 					.using({textureSrc : 'wood.jpg'}),
 
 				pShelf2l = new Cube()
-					.withDimension(0.1*ratio, 0.7*ratio, 0.4*ratio)
-					.at(-1.9*ratio+xoffset, 1.0*ratio+yoffset, 6.3*ratio+zoffset)
+					.withDimension(0.4*ratio, 0.7*ratio, 0.1*ratio)
+					.at(7.1*ratio+xoffset, 1.0*ratio+yoffset, -4.7*ratio+zoffset)
 					.using({textureSrc : 'wood.jpg'}),
 
 				pShelf2r = new Cube()
-					.withDimension(0.1*ratio, 0.7*ratio, 0.4*ratio)
-					.at(-4.3*ratio+xoffset, 1*ratio+yoffset, 6.3*ratio+zoffset)
+					.withDimension(0.4*ratio, 0.7*ratio, 0.1*ratio)
+					.at(7.1*ratio+xoffset, 1*ratio+yoffset, -7.1*ratio+zoffset)
 					.using({textureSrc : 'wood.jpg'}),
-
+				
 				ptable1 = new Cube()
-					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
-					.at(-4.3*ratio+xoffset, 0.6*ratio+yoffset, 10.5*ratio+zoffset)
-					.using({textureSrc : 'leather2.jpg'}),
+					.withDimension(1*ratio, 0.4*ratio, 1*ratio)
+					.at(11*ratio+xoffset, 0.6*ratio+yoffset, -6*ratio+zoffset)
+					.using({textureSrc : 'drawer.jpg'}),
 
-				ptable2 = new Cube()
-					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
-					.at(4.3*ratio+xoffset, 0.6*ratio+yoffset, 10.5*ratio+zoffset)
-					.using({textureSrc : 'leather2.jpg'}),
-
+					
 				pchair2 = new Cube()
-					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
-					.at(-4.3*ratio+xoffset, 0.6*ratio+yoffset, 12.7*ratio+zoffset)
+					.withDimension(1*ratio, 0.4*ratio, 1.2*ratio)
+					.at(8.8*ratio+xoffset, 0.6*ratio+yoffset, 2.1*ratio+zoffset)
 					.using({textureSrc : 'chair2.jpg'}),
 
 				pchair2b = new Cube()
-					.withDimension(0.2*ratio, 0.6*ratio, 1*ratio)
-					.at(-5.3*ratio+xoffset, 1*ratio+yoffset, 12.7*ratio+zoffset)
+					.withDimension(1*ratio, 0.6*ratio, 0.2*ratio)
+					.at(8.8*ratio+xoffset, 1*ratio+yoffset, 3.1*ratio+zoffset)
 					.using({textureSrc : 'chair2.jpg'}),
 
 				pchair2c = new Cube()
-					.withDimension(1*ratio, 0.4*ratio, 0.16*ratio)
-					.at(-4.3*ratio+xoffset, 1*ratio+yoffset, 13.6*ratio+zoffset)
+					.withDimension(0.16*ratio, 0.4*ratio, 1*ratio)
+					.at(7.9*ratio+xoffset, 1*ratio+yoffset, 2.1*ratio+zoffset)
 					.using({textureSrc : 'chair2.jpg'}),
 
 				pchair2d = new Cube()
-					.withDimension(1*ratio, 0.4*ratio, 0.16*ratio)
-					.at(-4.3*ratio+xoffset, 1*ratio+yoffset, 11.8*ratio+zoffset)
-					.using({textureSrc : 'chair2.jpg'}),
-
-				pchair3 = new Cube()
-					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
-					.at(-4.3*ratio+xoffset, 0.6*ratio+yoffset, 8.3*ratio+zoffset)
-					.using({textureSrc : 'chair2.jpg'}),
-
-				pchair3b = new Cube()
-					.withDimension(0.2*ratio, 0.6*ratio, 1*ratio)
-					.at(-5.3*ratio+xoffset, 1*ratio+yoffset, 8.3*ratio+zoffset)
-					.using({textureSrc : 'chair2.jpg'}),
-
-				pchair3c = new Cube()
-					.withDimension(1*ratio, 0.4*ratio, 0.16*ratio)
-					.at(-4.3*ratio+xoffset, 1*ratio+yoffset, 9.2*ratio+zoffset)
-					.using({textureSrc : 'chair2.jpg'}),
-
-				pchair3d = new Cube()
-					.withDimension(1*ratio, 0.4*ratio, 0.16*ratio)
-					.at(-4.3*ratio+xoffset, 1*ratio+yoffset, 7.4*ratio+zoffset)
+					.withDimension(0.16*ratio, 0.4*ratio, 1*ratio)
+					.at(9.7*ratio+xoffset, 1*ratio+yoffset, 2.1*ratio+zoffset)
 					.using({textureSrc : 'chair2.jpg'}),
 
 				pchair4 = new Cube()
-					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
-					.at(4.3*ratio+xoffset, 0.6*ratio+yoffset, 8.3*ratio+zoffset)
+					.withDimension(1*ratio, 0.4*ratio, 1.2*ratio)
+					.at(11.3*ratio+xoffset, 0.6*ratio+yoffset, 2.1*ratio+zoffset)
 					.using({textureSrc : 'chair2.jpg'}),
 
 				pchair4b = new Cube()
-					.withDimension(0.2*ratio, 0.6*ratio, 1*ratio)
-					.at(5.3*ratio+xoffset, 1*ratio+yoffset, 8.3*ratio+zoffset)
+					.withDimension(1*ratio, 0.6*ratio, 0.2*ratio)
+					.at(11.3*ratio+xoffset, 1*ratio+yoffset, 3.1*ratio+zoffset)
 					.using({textureSrc : 'chair2.jpg'}),
 
 				pchair4c = new Cube()
-					.withDimension(1*ratio, 0.4*ratio, 0.16*ratio)
-					.at(4.3*ratio+xoffset, 1*ratio+yoffset, 9.2*ratio+zoffset)
+					.withDimension(0.16*ratio, 0.4*ratio, 1*ratio)
+					.at(10.4*ratio+xoffset, 1*ratio+yoffset, 2.1*ratio+zoffset)
 					.using({textureSrc : 'chair2.jpg'}),
 
 				pchair4d = new Cube()
-					.withDimension(1*ratio, 0.4*ratio, 0.16*ratio)
-					.at(4.3*ratio+xoffset, 1*ratio+yoffset, 7.4*ratio+zoffset)
+					.withDimension(0.16*ratio, 0.4*ratio, 1*ratio)
+					.at(12.2*ratio+xoffset, 1*ratio+yoffset, 2.1*ratio+zoffset)
 					.using({textureSrc : 'chair2.jpg'}),
 
-				pchair5 = new Cube()
-					.withDimension(1.2*ratio, 0.4*ratio, 1*ratio)
-					.at(4.3*ratio+xoffset, 0.6*ratio+yoffset, 12.7*ratio+zoffset)
+					
+				pchair3 = new Cube()
+					.withDimension(1*ratio, 0.4*ratio, 1.2*ratio)
+					.at(8.8*ratio+xoffset, 0.6*ratio+yoffset, -6.1*ratio+zoffset)
 					.using({textureSrc : 'chair2.jpg'}),
 
-				pchair5b = new Cube()
-					.withDimension(0.2*ratio, 0.6*ratio, 1*ratio)
-					.at(5.3*ratio+xoffset, 1*ratio+yoffset, 12.7*ratio+zoffset)
+				pchair3b = new Cube()
+					.withDimension(1*ratio, 0.6*ratio, 0.2*ratio)
+					.at(8.8*ratio+xoffset, 1*ratio+yoffset, -7.1*ratio+zoffset)
 					.using({textureSrc : 'chair2.jpg'}),
 
-				pchair5c = new Cube()
-					.withDimension(1*ratio, 0.4*ratio, 0.16*ratio)
-					.at(4.3*ratio+xoffset, 1*ratio+yoffset, 13.6*ratio+zoffset)
+				pchair3c = new Cube()
+					.withDimension(0.16*ratio, 0.4*ratio, 1*ratio)
+					.at(7.9*ratio+xoffset, 1*ratio+yoffset, -6.1*ratio+zoffset)
 					.using({textureSrc : 'chair2.jpg'}),
 
-				pchair5d = new Cube()
-					.withDimension(1*ratio, 0.4*ratio, 0.16*ratio)
-					.at(4.3*ratio+xoffset, 1*ratio+yoffset, 11.8*ratio+zoffset)
+				pchair3d = new Cube()
+					.withDimension(0.16*ratio, 0.4*ratio, 1*ratio)
+					.at(9.7*ratio+xoffset, 1*ratio+yoffset, -6.1*ratio+zoffset)
 					.using({textureSrc : 'chair2.jpg'}),
+	
+				pchair1 = new Cube()
+					.withDimension(1*ratio, 0.4*ratio, 1.2*ratio)
+					.at(11.5*ratio+xoffset, 0.6*ratio+yoffset, -6.1*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
+
+				pchair1b = new Cube()
+					.withDimension(1*ratio, 0.6*ratio, 0.2*ratio)
+					.at(11.5*ratio+xoffset, 1*ratio+yoffset, -7.1*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
+
+				pchair1c = new Cube()
+					.withDimension(0.16*ratio, 0.4*ratio, 1*ratio)
+					.at(10.6*ratio+xoffset, 1*ratio+yoffset, -6.1*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
+
+				pchair1d = new Cube()
+					.withDimension(0.16*ratio, 0.4*ratio, 1*ratio)
+					.at(12.4*ratio+xoffset, 1*ratio+yoffset, -6.1*ratio+zoffset)
+					.using({textureSrc : 'chair2.jpg'}),
+
 				pcarpet = new Cube()
-					.withDimension(1.2*ratio, 0.1*ratio, 4.5*ratio)
-					.at(0*ratio+xoffset, 0.02*ratio+yoffset,11*ratio+zoffset)
-					.using({textureSrc : 'carpet.jpg'}),
+					.withDimension(2.5*ratio, 0.1*ratio, 1.2*ratio)
+					.at(8*ratio+xoffset, 0.02*ratio+yoffset,-2*ratio+zoffset)
+					.using({textureSrc : 'carpet.jpg'});
 
-				pdispenser = new Cube()
-					.withDimension(0.7*ratio, 1.3*ratio, 0.8*ratio)
-					.at(-4*ratio+xoffset, 1.2*ratio+yoffset, 14.8*ratio+zoffset)
-					.using({textureSrc : 'coke.png'});
-
-
-			//Cube room
+					//Cube room
 			scene.addObject(boardCarpet);
 			scene.addObject(boardTV);
 			scene.addObject(boardAirconL);
@@ -418,8 +405,11 @@
 			scene.addObject(pShelf2b);
 			scene.addObject(pShelf2l);
 			scene.addObject(pShelf2r);
-			scene.addObject(ptable1);
-			scene.addObject(ptable2);
+			//scene.addObject(ptable1);
+			scene.addObject(pchair1);
+			scene.addObject(pchair1b);
+			scene.addObject(pchair1c);
+			scene.addObject(pchair1d);
 			scene.addObject(pchair2);
 			scene.addObject(pchair2b);
 			scene.addObject(pchair2c);
@@ -432,12 +422,7 @@
 			scene.addObject(pchair4b);
 			scene.addObject(pchair4c);
 			scene.addObject(pchair4d);
-			scene.addObject(pchair5);
-			scene.addObject(pchair5b);
-			scene.addObject(pchair5c);
-			scene.addObject(pchair5d);
 			scene.addObject(pcarpet);
-			scene.addObject(pdispenser);
 		},
 
 		drawKitchen = function(){
