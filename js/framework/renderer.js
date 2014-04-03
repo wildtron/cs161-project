@@ -32,7 +32,7 @@ var Renderer = function (width, height) {
 					gl.attachShader(program, shader);
 				};
 
-			console.time('renderer : compileShadersAndGetProgram');
+			// console.time('renderer : compileShadersAndGetProgram');
 
 			compileAndAttachShader(object.fragmentSource, gl.FRAGMENT_SHADER, program, gl);
 			compileAndAttachShader(object.vertexSource, gl.VERTEX_SHADER, program, gl);
@@ -44,7 +44,7 @@ var Renderer = function (width, height) {
 				throw new Error('Shaders cannot be initialized');
 			}
 
-			console.timeEnd('renderer : compileShadersAndGetProgram');
+			// console.timeEnd('renderer : compileShadersAndGetProgram');
 			return program;
 		};
 
@@ -65,7 +65,6 @@ var Renderer = function (width, height) {
 		this.camera.bindEvents();
 		this.drawObjects();
 		this.animate();
-		console.timeEnd('render');
 	};
 
 	this.drawObjects = function () {
@@ -90,7 +89,7 @@ var Renderer = function (width, height) {
 			gl = this.GL,
 			self = this,
 			program;
-		console.time('render');
+		// console.time('render');
 		gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight)
 		gl.clearColor.apply(gl, util.hexToRGBA(this.background));
 		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -106,7 +105,7 @@ var Renderer = function (width, height) {
 				self.animate();
 			});
 		}, 1000 / this.fps);
-		console.timeEnd('render');
+		// console.timeEnd('render');
 	}
 
 	console.timeEnd('renderer : initializing');

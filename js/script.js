@@ -15,31 +15,41 @@
 					new Cube()
 						.withDimension(worldWidth, wallThickness, unit * 24)
 						.at(0, 0, 0)
-						.using({textureSrc : 'wood-floor.png'}),
+						.using({materialDiffuse : '#95a5a6'}),
 					// front stairs floor
 					new Cube()
 						.withDimension(unit * 2, wallThickness, unit * 2)
 						.at(unit * 5, 0, unit * 26)
-						.using({textureSrc : 'wood-floor.png'}),
+						.using({materialDiffuse : '#95a5a6'}),
 					// void
 					new Cube()
 						.withDimension(unit * 4, wallThickness, unit * 20)
 						.at(0, 10, 0)
 						.using({materialDiffuse : '#000', solid : true}),
+					// lab rooms 1
+					new Cube()
+						.withDimension(unit * 9, wallThickness, unit * 20)
+						.at(-unit * 17, 15, 0)
+						.using({textureSrc : 'wood-floor.png'}),
+					// lab rooms 2
+					new Cube()
+						.withDimension(unit * 9, wallThickness, unit * 20)
+						.at(unit * 17, 15, 0)
+						.using({textureSrc : 'wood-floor.png'}),
 					// emergency exit floor
 					new Cube()
 						.withDimension(unit * 2, wallThickness, unit * 2)
 						.at(-unit * 0, 0, -unit * 26)
-						.using({materialDiffuse : '#F00', solid : true}),
+						.using({materialDiffuse : '#F00'}),
 					// mens cr
 					new Cube()
 						.withDimension(unit * 6, wallThickness, unit * 3)
-						.at(-unit * 22, 10, unit * 23)
+						.at(-unit * 22, 20, unit * 23)
 						.using({textureSrc: 'cr-floor.png'}),
 					// womens cr
 					new Cube()
 						.withDimension(unit * 6, wallThickness, unit * 3)
-						.at(unit * 22, 10, unit * 23)
+						.at(unit * 22, 20, unit * 23)
 						.using({textureSrc: 'cr-floor.png'}),
 				],
 				walls = [
@@ -74,8 +84,8 @@
 						.at(-unit * 14, wallHeight, -(unit * 15)),
 					// kitchen corner
 					new Cube()
-						.withDimension(wallThickness, wallHeight / 2, unit * 3)
-						.at(unit * 20, wallHeight / 2, unit * 13),
+						.withDimension(unit + 20, wallHeight / 2, unit * 3)
+						.at(unit * 19 + 15, wallHeight / 2, unit * 13),
 					//mens cr
 					new Cube()
 						.withDimension(wallThickness, wallHeight, unit * 3)
@@ -163,31 +173,58 @@
 					// emergency door
 					new Cube().at(0, 500, -unit * 24),
 				],
+				windows = [
+					new Cube().at(unit * 8, 800, unit * 15).using({rotateY : -90}),
+					new Cube().at(-unit * 8, 800, unit * 15).using({rotateY : -90}),
+					new Cube().at(unit * 8, 800, unit * 5).using({rotateY : -90}),
+					new Cube().at(-unit * 8, 800, unit * 5).using({rotateY : -90}),
+					new Cube().at(unit * 8, 800, unit * -5).using({rotateY : -90}),
+					new Cube().at(-unit * 8, 800, unit * -5).using({rotateY : -90}),
+				],
+				aircons = [
+					new Cube().at(-unit * 23, ((unit - 4) * 0.3) + 1000, (-wallThickness - (unit - 4) * 0.3) - (unit * 10)),
+					new Cube().at(-unit * 23, ((unit - 4) * 0.3) + 1000, (wallThickness + (unit - 4) * 0.3) - (unit * 20)),
+					new Cube().at(unit * 23, ((unit - 4) * 0.3) + 1000, (-wallThickness - (unit - 4) * 0.3) - (unit * 10)),
+					new Cube().at(unit * 23, ((unit - 4) * 0.3) + 1000, (wallThickness + (unit - 4) * 0.3) - (unit * 20)),
+
+					new Cube().at(-unit * 23, ((unit - 4) * 0.3) + 1000, (wallThickness + (unit - 4) * 0.3) - (unit * 10)),
+					new Cube().at(-unit * 23, ((unit - 4) * 0.3) + 1000, -wallThickness - (unit - 4) * 0.3),
+					new Cube().at(unit * 23, ((unit - 4) * 0.3) + 1000, (wallThickness + (unit - 4) * 0.3) - (unit * 10)),
+					new Cube().at(unit * 23, ((unit - 4) * 0.3) + 1000, -wallThickness - (unit - 4) * 0.3),
+
+					new Cube().at(-unit * 23, ((unit - 4) * 0.3) + 1000, (wallThickness + (unit - 4) * 0.3)),
+					new Cube().at(unit * 23, ((unit - 4) * 0.3) + 1000, (wallThickness + (unit - 4) * 0.3)),
+					new Cube().at(-unit * 23, ((unit - 4) * 0.3) + 1000, (-wallThickness - (unit - 4) * 0.3) + (unit * 10)),
+					new Cube().at(unit * 23, ((unit - 4) * 0.3) + 1000, (-wallThickness - (unit - 4) * 0.3) + (unit * 10)),
+
+					new Cube().at(-unit * 23, ((unit - 4) * 0.3) + 1000, (wallThickness + (unit - 4) * 0.3) + (unit * 10)),
+					new Cube().at(unit * 23, ((unit - 4) * 0.3) + 1000, (wallThickness + (unit - 4) * 0.3) + (unit * 10)),
+					new Cube().at(-unit * 23, ((unit - 4) * 0.3) + 1000, (-wallThickness - (unit - 4) * 0.3) + (unit * 20)),
+					new Cube().at(unit * 23, ((unit - 4) * 0.3) + 1000, (-wallThickness - (unit - 4) * 0.3) + (unit * 20)),
+				],
 				i = floors.length;
 
-			while (i--) {
-				scene.addObject(floors[i]);
-			}
+			while (i--) scene.addObject(floors[i]);
 			i = walls.length;
-			while (i--) {
-				scene.addObject(walls[i].using({textureSrc : 'wall.png'}));
-			}
+			while (i--) scene.addObject(walls[i].using({textureSrc : 'wall.png'}));
+			i = aircons.length;
+			while (i--) scene.addObject(aircons[i].withDimension((unit - 4) * 3, (unit - 4) * 0.3, (unit - 4) * 0.3).using({textureSrc : 'aircon1.jpg'}));
 			i = doors.length;
-			while (i--) {
-				scene.addObject(doors[i].withDimension(unit * 2, 500, wallThickness + 10).using({materialDiffuse : '#bdc3c7', solid : true}));
-			}
+			while (i--) scene.addObject(doors[i].withDimension(unit * 2 - 150, 500, wallThickness + 30).using({materialDiffuse : '#2c3e50'}));
+			i = windows.length;
+			while (i--) scene.addObject(windows[i].withDimension(unit * 1.5, unit * 1.5, wallThickness + 10).using({materialDiffuse : '#000'}));
 			for (i = 0; i < 10; i++) {
 				scene.addObject(
 					new Cube()
 						.withDimension(unit, 50, unit * 2)
 						.at(-unit * 6 + (unit * i), (unit / 2) * i - ((unit / 2) * 10), unit * 26)
-						.using({materialDiffuse : '#95a5a6', solid : true})
+						.using({materialDiffuse : '#95a5a6'})
 				);
 				scene.addObject(
 					new Cube()
 						.withDimension(unit, 50, unit * 2)
 						.at(-unit * 12 + (unit * i), (unit / 2) * i - ((unit / 2) * 10), -unit * 26)
-						.using({materialDiffuse : '#F00', solid : true})
+						.using({materialDiffuse : '#F00'})
 				);
 			}
 		},
@@ -201,17 +238,6 @@
 					.withDimension(6*ratio, 0.1*ratio, 4*ratio)
 					.at(0+xoffset, (0.02*ratio)+yoffset, (-1.1*ratio)+zoffset)
 					.using({textureSrc : 'carpet.jpg'}),
-
-				boardAirconL = new Cube()
-					.withDimension(3*ratio, 0.3*ratio, 0.3*ratio)
-					.at(-3*ratio+xoffset, 5*ratio+yoffset, 3.5*ratio+zoffset)
-					.using({textureSrc : 'aircon1.jpg'}),
-
-				boardAirconR = new Cube()
-					.withDimension(3*ratio, 0.3*ratio, 0.3*ratio)
-					.at(-3*ratio+xoffset, 5*ratio+yoffset, -5.5*ratio+zoffset)
-					.using({textureSrc : 'aircon1.jpg'}),
-
 				boardTV = new Cube()
 					.withDimension(0.01*ratio, 1*ratio, 1.3*ratio)
 					.at(-5.5*ratio+xoffset, 3*ratio+yoffset, -1*ratio+zoffset)
@@ -271,7 +297,7 @@
 					.withDimension(0.4*ratio, 0.7*ratio, 0.1*ratio)
 					.at(7.1*ratio+xoffset, 1*ratio+yoffset, 0.7*ratio+zoffset)
 					.using({textureSrc : 'wood.jpg'}),
-				
+
 				pShelf2t = new Cube()
 					.withDimension(0.4*ratio, 0.1*ratio, 1.3*ratio)
 					.at(7.1*ratio+xoffset, 1.6*ratio+yoffset, -5.9*ratio+zoffset)
@@ -291,13 +317,13 @@
 					.withDimension(0.4*ratio, 0.7*ratio, 0.1*ratio)
 					.at(7.1*ratio+xoffset, 1*ratio+yoffset, -7.1*ratio+zoffset)
 					.using({textureSrc : 'wood.jpg'}),
-				
+
 				ptable1 = new Cube()
 					.withDimension(1*ratio, 0.4*ratio, 1*ratio)
 					.at(11*ratio+xoffset, 0.6*ratio+yoffset, -6*ratio+zoffset)
 					.using({textureSrc : 'drawer.jpg'}),
 
-					
+
 				pchair2 = new Cube()
 					.withDimension(1*ratio, 0.4*ratio, 1.2*ratio)
 					.at(8.8*ratio+xoffset, 0.6*ratio+yoffset, 2.1*ratio+zoffset)
@@ -338,7 +364,7 @@
 					.at(12.2*ratio+xoffset, 1*ratio+yoffset, 2.1*ratio+zoffset)
 					.using({textureSrc : 'chair2.jpg'}),
 
-					
+
 				pchair3 = new Cube()
 					.withDimension(1*ratio, 0.4*ratio, 1.2*ratio)
 					.at(8.8*ratio+xoffset, 0.6*ratio+yoffset, -6.1*ratio+zoffset)
@@ -358,7 +384,7 @@
 					.withDimension(0.16*ratio, 0.4*ratio, 1*ratio)
 					.at(9.7*ratio+xoffset, 1*ratio+yoffset, -6.1*ratio+zoffset)
 					.using({textureSrc : 'chair2.jpg'}),
-	
+
 				pchair1 = new Cube()
 					.withDimension(1*ratio, 0.4*ratio, 1.2*ratio)
 					.at(11.5*ratio+xoffset, 0.6*ratio+yoffset, -6.1*ratio+zoffset)
@@ -387,8 +413,6 @@
 					//Cube room
 			scene.addObject(boardCarpet);
 			scene.addObject(boardTV);
-			scene.addObject(boardAirconL);
-			scene.addObject(boardAirconR);
 
 			scene.addObject(boardTable);
 			scene.addObject(boardTableLeg1);
