@@ -1,8 +1,6 @@
 (function () {
 	console.time('whole');
 
-	// create objects
-	// width, height, length
 	var renderer = new Renderer(window.innerWidth, window.innerHeight),
 		camera = new Camera(),
 		scene = new Scene(),
@@ -23,6 +21,11 @@
 						.withDimension(unit * 2, wallThickness, unit * 2)
 						.at(unit * 5, 0, unit * 26)
 						.using({textureSrc : 'wood-floor.png'}),
+					// void
+					new Cube()
+						.withDimension(unit * 4, wallThickness, unit * 20)
+						.at(0, 10, 0)
+						.using({materialDiffuse : '#000', solid : true}),
 					// emergency exit floor
 					new Cube()
 						.withDimension(unit * 2, wallThickness, unit * 2)
@@ -43,19 +46,19 @@
 					// vertical walls
 					new Cube()
 						.withDimension(wallThickness, wallHeight, unit * 22)
-						.at(-worldWidth + wallThickness, wallHeight + wallThickness / 2, -unit * 2),
+						.at(-worldWidth + wallThickness, wallHeight, -unit * 2),
 					new Cube()
 						.withDimension(wallThickness, wallHeight, unit * 20)
-						.at(-unit * 26, wallHeight + wallThickness / 2, 0),
+						.at(-unit * 26, wallHeight, 0),
 					new Cube()
 						.withDimension(wallThickness, wallHeight, unit * 15)
-						.at(-unit * 8, wallHeight + wallThickness / 2, unit * 5),
+						.at(-unit * 8, wallHeight, unit * 5),
 					new Cube()
-						.withDimension(wallThickness, wallHeight, unit * 20)
-						.at(-unit * 4, wallHeight + wallThickness / 2, 0),
+						.withDimension(wallThickness, wallHeight / 2, unit * 20)
+						.at(-unit * 4, wallHeight / 2, 0),
 					new Cube()
-						.withDimension(wallThickness, wallHeight, unit * 20)
-						.at(unit * 4, wallHeight + wallThickness / 2, 0),
+						.withDimension(wallThickness, wallHeight / 2, unit * 20)
+						.at(unit * 4, wallHeight / 2, 0),
 					new Cube()
 						.withDimension(wallThickness, wallHeight, unit * 20)
 						.at(unit * 8, wallHeight, 0),
@@ -96,8 +99,8 @@
 						.withDimension(unit * 6, wallHeight, wallThickness)
 						.at(-unit * 20, wallHeight, -unit * 20),
 					new Cube()
-						.withDimension(unit * 4, wallHeight, wallThickness)
-						.at(0, wallHeight, -unit * 20),
+						.withDimension(unit * 4, wallHeight / 2, wallThickness)
+						.at(0, wallHeight / 2, -unit * 20),
 					new Cube()
 						.withDimension(unit * 9, wallHeight, wallThickness)
 						.at(unit * 17, wallHeight, -unit * 20),
@@ -500,11 +503,35 @@
 			scene.addObject(kRefBottom);
 			scene.addObject(kRefTop);
 			scene.addObject(kOven);
+		},
+		drawPeople = function () {
+			var ratio = unit-4,
+				xoffset = unit * 23,
+				yoffset = unit * 0.2,
+				zoffset = unit * 10,
+
+				person = new Person()
+					.withDimension(ratio, ratio, ratio)
+					.at(0+xoffset, 0+yoffset, 0+zoffset)
+					.using({textureSrc : 'minecraftman.png'}),
+				person2 = new Person()
+					.withDimension(ratio, ratio, ratio)
+					.at(0+xoffset, 0+yoffset, (5*ratio)+zoffset)
+					.using({textureSrc : 'finn.png'}),
+				person3 = new Person()
+					.withDimension(ratio, ratio, ratio)
+					.at(0+xoffset, 0+yoffset, (10*ratio)+zoffset)
+					.using({textureSrc : 'spiderman.png'});
+
+			scene.addObject(person);
+			scene.addObject(person2);
+			scene.addObject(person3);
 		};
 
 	drawStructure();
 	drawPatio();
 	drawKitchen();
+	drawPeople();
 
 	// append the canvas element
 	document.body.appendChild(renderer.domElement);
