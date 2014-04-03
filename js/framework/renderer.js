@@ -100,8 +100,6 @@ var Renderer = function (width, height) {
 			gl.useProgram(program);
 			this.camera.animate(gl, program);
 			objects[i].animate(gl, program);
-			gl.flush();
-			gl.finish();
 		}
 		setTimeout(function () {
 			requestAnimFrame(function () {

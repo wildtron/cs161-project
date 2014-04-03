@@ -1,4 +1,4 @@
-Person = function () {
+Person = function (options) {
 	var modelMatrix = mat4.create(),
 		image1Ready = false,
 		indexBuffer,

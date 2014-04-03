@@ -61,11 +61,11 @@ var Camera = function () {
 		yawRate = pitchRate = speed = 0;
 
 		if (currentlyPressedKeys[36]) { // Home
-			stage += 0.01;
+			stage += 0.003;
 			yPos = stage;
 		}
 		else if (currentlyPressedKeys[35]){ // End
-			stage -= 0.01;
+			stage -= 0.003;
 			yPos = stage;
 		}
 
