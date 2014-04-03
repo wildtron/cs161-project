@@ -24,21 +24,19 @@
 						.at(unit * 5, 0, unit * 26)
 						.using({textureSrc : 'wood-floor.png'}),
 					// emergency exit floor
-					// new Cube()
-						// .withDimension(unit * 2, wallThickness, unit * 2)
-						// .at(-unit * 0, 0, -unit * 26)
-						// .using({materialDiffuse : '#F00'}),
+					new Cube()
+						.withDimension(unit * 2, wallThickness, unit * 2)
+						.at(-unit * 0, 0, -unit * 26)
+						.using({materialDiffuse : '#F00', solid : true}),
 					// mens cr
 					new Cube()
 						.withDimension(unit * 6, wallThickness, unit * 3)
 						.at(-unit * 22, 10, unit * 23)
-						// .using({materialDiffuse: '#2980b9', solid : true}),
 						.using({textureSrc: 'cr-floor.png'}),
 					// womens cr
 					new Cube()
 						.withDimension(unit * 6, wallThickness, unit * 3)
 						.at(unit * 22, 10, unit * 23)
-						// .using({materialDiffuse: '#2980b9', solid : true}),
 						.using({textureSrc: 'cr-floor.png'}),
 				],
 				walls = [
@@ -73,8 +71,8 @@
 						.at(-unit * 14, wallHeight, -(unit * 15)),
 					// kitchen corner
 					new Cube()
-						.withDimension(wallThickness, wallHeight, unit * 3)
-						.at(unit * 20, wallHeight, unit * 13),
+						.withDimension(wallThickness, wallHeight / 2, unit * 3)
+						.at(unit * 20, wallHeight / 2, unit * 13),
 					//mens cr
 					new Cube()
 						.withDimension(wallThickness, wallHeight, unit * 3)
@@ -169,26 +167,25 @@
 			}
 			i = walls.length;
 			while (i--) {
-				// scene.addObject(walls[i].using({materialDiffuse : '#FFF'}));
 				scene.addObject(walls[i].using({textureSrc : 'wall.png'}));
 			}
 			i = doors.length;
 			while (i--) {
-				// scene.addObject(doors[i].withDimension(unit * 2, 500, wallThickness + 10).using({materialDiffuse : '#bdc3c7', solid : true}));
+				scene.addObject(doors[i].withDimension(unit * 2, 500, wallThickness + 10).using({materialDiffuse : '#bdc3c7', solid : true}));
 			}
 			for (i = 0; i < 10; i++) {
-				// scene.addObject(
-					// new Cube()
-						// .withDimension(unit, 50, unit * 2)
-						// .at(-unit * 6 + (unit * i), (unit / 2) * i - ((unit / 2) * 10), unit * 26)
-						// .using({materialDiffuse : '#95a5a6'})
-				// );
-				// scene.addObject(
-					// new Cube()
-						// .withDimension(unit, 50, unit * 2)
-						// .at(-unit * 12 + (unit * i), (unit / 2) * i - ((unit / 2) * 10), -unit * 26)
-						// .using({materialDiffuse : '#F00'})
-				// );
+				scene.addObject(
+					new Cube()
+						.withDimension(unit, 50, unit * 2)
+						.at(-unit * 6 + (unit * i), (unit / 2) * i - ((unit / 2) * 10), unit * 26)
+						.using({materialDiffuse : '#95a5a6', solid : true})
+				);
+				scene.addObject(
+					new Cube()
+						.withDimension(unit, 50, unit * 2)
+						.at(-unit * 12 + (unit * i), (unit / 2) * i - ((unit / 2) * 10), -unit * 26)
+						.using({materialDiffuse : '#F00', solid : true})
+				);
 			}
 		},
 
@@ -509,11 +506,7 @@
 					.at(2.1*ratio+xoffset, 2*ratio+yoffset, 3.4*ratio+zoffset)
 					.using({textureSrc : 'oven1.jpg'});
 
-
-			// add all objects here....
-
 			scene.addObject(floor);
-
 			scene.addObject(kCounter1);
 			scene.addObject(kCounter2);
 			scene.addObject(kCounter3);

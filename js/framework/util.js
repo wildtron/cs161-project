@@ -30,7 +30,7 @@
 	 *	- ugh.
 	 */
 	util.hexToRGBA = function (hex) {
-		return util.hexToRGB(hex).concat([1]);
+		return util.hexToRGB(hex).concat([255]);
 	};
 
 
@@ -39,6 +39,16 @@
 	 */
 	util.hexToRGBN = function (hex) {
 		return util.hexToRGB(hex).map(function (c) {
+			return c / 255;
+		});
+	};
+
+
+	/** hexToRGBAN
+	 *	- Normalized RGBA
+	 */
+	util.hexToRGBAN = function (hex) {
+		return util.hexToRGBA(hex).map(function (c) {
 			return c / 255;
 		});
 	};

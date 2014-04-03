@@ -1,4 +1,4 @@
-Person = function (options) {
+Person = function () {
 	var modelMatrix = mat4.create(),
 		image1Ready = false,
 		indexBuffer,
@@ -121,9 +121,9 @@ Person = function (options) {
 		for(var i=1; i<5; i++)
 			for(var j=0; j<indices.length; j++)
 				indices2.push(indices[j]+(24*(i)));
-			
+
 		indices = indices.concat(indices2);
-		
+
 		//for(var i=0; i<indices.length; i++)
 			//console.log(indices[i]+" ");
 
@@ -134,7 +134,7 @@ Person = function (options) {
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
 
 		var tex_coords = [   // Coordinates
-		
+
 				0.57, 1.0,	0.0, 1.0,	0, 0.73,	0.57, 0.73,	//front
 		    	0.95, 0.95,	0.95, 0.95,	0.95, 0.95,	0.95, 0.95,	//right
 				0.95, 0.95,	0.95, 0.95,	0.95, 0.95,	0.95, 0.95,	//front

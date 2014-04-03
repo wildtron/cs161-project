@@ -13,37 +13,32 @@ Cube = function () {
 		];
 
 	this.name = 'cube';
-	this.lights = true;
 
 	// vertex
 	this.vertexSource = '\
-	attribute vec3 aPosition; \
-	attribute vec3 aNormal;\
-	uniform mat4 uModel;\
-	uniform mat4 uView;\
-	uniform mat4 uProjection;\
-	uniform mat4 uNormal;\
-	uniform vec3 uMaterialDiffuse;\
-	uniform vec3 uLightDiffuse;\
-	uniform vec3 uLightDirection;\
-	varying vec4 vColor;\
-	void main() {\
-		gl_Position = uProjection * uView * uModel * vec4(aPosition, 1);\
-		vec3 corrected_aNormal = vec3(uNormal * vec4(aNormal, 1));\
-		vec3 normalized_aNormal = normalize(corrected_aNormal);\
-		vec3 normalized_uLightDirection = normalize(uLightDirection);\
-		float lambertCoefficient = max(dot(-normalized_uLightDirection,normalized_aNormal), 0.0);\
-		vec3 diffuseColor =  uLightDiffuse * uMaterialDiffuse * lambertCoefficient;\
-		vColor = vec4(diffuseColor,1);\
-	}';
+		attribute vec3 aPosition;\
+		attribute vec2 aTexCoords;\
+		attribute vec4 a_color;\
+		uniform mat4 uModel;\
+		uniform mat4 uView;\
+		uniform mat4 uProjection;\
+		varying vec2 vTexCoords;\
+		varying vec4 v_color;\
+		void main() {\
+			gl_Position = uProjection * uView * uModel * vec4(aPosition,1);\
+			v_color = a_color;\
+			vTexCoords = aTexCoords;\
+		}';
 
 	// fragment
 	this.fragmentSource = '\
-	precision mediump float; \
-	varying vec4 vColor;	\
-	void main() {\
-		gl_FragColor = vColor;\
-	}';
+		precision mediump float;\
+		uniform sampler2D uSampler;\
+		varying vec2 vTexCoords;\
+		varying vec4 v_color;\
+		void main() {\
+			gl_FragColor = texture2D(uSampler, vTexCoords) * v_color;\
+		}';
 
 	this.withDimension = function (x, y, z) {
 		this.dimension = util.pixelToN([x, y, z]);
@@ -59,58 +54,13 @@ Cube = function () {
 		var i;
 		for (i in objs) {
 			this[i] = objs[i];
-			if (i === 'textureSrc') {
-				this.useTexture();
-			}
-			else if (i === 'solid') {
-				this.useSolid();
-			}
 		}
 		return this;
 	};
 
 	this.convertProperties = function () {
 		this.materialDiffuseRGB = util.hexToRGBN(this.materialDiffuse);
-	};
-
-	this.useTexture = function () {
-		this.lights = false;
-		// vertex
-		this.vertexSource = '\
-			attribute vec3 aPosition;\
-			attribute vec2 aTexCoords;\
-			uniform mat4 uModel;\
-			uniform mat4 uView;\
-			uniform mat4 uProjection;\
-			varying vec2 vTexCoords;\
-			void main() {\
-				gl_Position = uProjection * uView * uModel * vec4(aPosition,1);\
-				vTexCoords = aTexCoords;\
-			}';
-
-		// fragment
-		this.fragmentSource = '\
-			precision mediump float;\
-			uniform sampler2D uSampler;\
-			varying vec2 vTexCoords;\
-			void main() {\
-				gl_FragColor = texture2D(uSampler, vTexCoords);\
-			}';
-	};
-
-	this.useSolid = function () {
-		this.solid = true;
-		this.vertexSource = '\
-		attribute vec3 aPosition; \
-		uniform mat4 uModel;\
-		uniform mat4 uView;\
-		uniform mat4 uProjection;\
-		uniform vec3 uMaterialDiffuse;\
-		varying vec4 vColor;\
-		void main() {\
-			gl_Position = uProjection * uView * uModel * vec4(aPosition, 1);\
-			vColor = vec4(uMaterialDiffuse,1);\
-		}';
+		this.materialDiffuseRGBA = util.hexToRGBAN(this.materialDiffuse);
 	};
 
 	this.render = function (gl, program) {
@@ -140,38 +90,43 @@ Cube = function () {
 		mat4.translate(modelMatrix, modelMatrix, this.position);
 		gl.uniformMatrix4fv(gl.getUniformLocation(program,'uModel'), false, modelMatrix);
 
+		texture = gl.createTexture();
+
 		if (this.textureSrc) {
 			gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
 			gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([   // Coordinates
-				 0, 0,				 0, 0,				 0, 0,				 0, 0,
-				 1, 1,				 0, 1,				 0, 0,				 1, 0,
-				 1, 1,				 0, 1,				 0, 0,				 1, 0,
-				 1, 1,				 0, 1,				 0, 0,				 1, 0,
-				 1, 1,				 0, 1,				 0, 0,				 1, 0,
-				 1, 1,				 0, 1,				 0, 0,				 1, 0
+			 1.0, 1.0,		     0.0, 1.0,		     0.0, 0.0,		     1.0, 0.0,
+			 1.0, 1.0,		     0.0, 1.0,		     0.0, 0.0,		     1.0, 0.0,
+			 1.0, 1.0,		     0.0, 1.0,		     0.0, 0.0,		     1.0, 0.0,
+			 1.0, 1.0,		     0.0, 1.0,		     0.0, 0.0,		     1.0, 0.0,
+			 1.0, 1.0,		     0.0, 1.0,		     0.0, 0.0,		     1.0, 0.0,
+			 1.0, 1.0,		     0.0, 1.0,		     0.0, 0.0,		     1.0, 0.0
 			]), gl.STATIC_DRAW);
 
 			gl.vertexAttribPointer(temp = gl.getAttribLocation(program, 'aTexCoords'), 2, gl.FLOAT, false, 0,0);
 			gl.enableVertexAttribArray(temp);
 			gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
-			texture = gl.createTexture();
 			temp = new Image(),
 			temp.onload = function () {
 				gl.bindTexture(gl.TEXTURE_2D, texture);
-				// gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+				gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 				gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,gl.UNSIGNED_BYTE, temp);
-				// gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
-				// gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+				gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+				gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
 				gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
 				gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
 				gl.bindTexture(gl.TEXTURE_2D, null);
 				image1Ready = true;
 			};
 			temp.src = 'images/textures/' + this.textureSrc;
-		}
-		else {
+		} else {
 			this.convertProperties();
+			gl.bindTexture(gl.TEXTURE_2D, texture);
+			gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([255, 255, 255, 255]));
+			image1Ready = true;
+		}
+		/* else {
 
 			if (!this.solid) {
 				gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
@@ -193,20 +148,25 @@ Cube = function () {
 
 				gl.uniform3f(gl.getUniformLocation(program, 'uLightDiffuse'), 1, 1, 1);
 			}
-		}
+		} */
 	};
 
 	this.animate = function (gl, program) {
+		var temp;
 		if (this.textureSrc) {
+			gl.disableVertexAttribArray(temp = gl.getAttribLocation(program, 'a_color'));
+			gl.enableVertexAttribArray(gl.getAttribLocation(program, 'aTexCoords'));
+			gl.vertexAttrib4f(temp, 1, 1, 1, 1);
 			gl.activeTexture(gl.TEXTURE0);
 			gl.bindTexture(gl.TEXTURE_2D, texture);
 			gl.uniform1i(gl.getUniformLocation(program, 'uSampler'), 0);
-			if (image1Ready) {
-				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-				gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
-			}
-		} else {
-			gl.uniform3f.apply(gl, [gl.getUniformLocation(program, 'uMaterialDiffuse')].concat(this.materialDiffuseRGB));
+		}
+		else {
+			temp = gl.getAttribLocation(program, 'a_color');
+			gl.vertexAttrib4f(temp, 1, 0, 0, 1);
+			gl.disableVertexAttribArray(gl.getAttribLocation(program, 'aTexCoords'));
+		}
+		if (image1Ready) {
 			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
 			gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
 		}
