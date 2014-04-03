@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sample Preymwerk usage. hehe</title>
+		<style type="text/css">
+			html,body{margin:0;padding:0;border:0;}
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript" src="js/framework/camera.js"></script>
+		<script type="text/javascript" src="js/framework/renderer.js"></script>
+		<script type="text/javascript" src="js/framework/scene.js"></script>
+		<script type="text/javascript" src="js/framework/util.js"></script>
+		<script type="text/javascript" src="js/libs/gl-matrix-min.js"></script>
+		<script type="text/javascript" src="js/libs/glMatrix-0.9.5.min.js"></script>
+		<script type="text/javascript" src="js/models/cube.js"></script>
+		<script type="text/javascript" src="js/models/board.js"></script>
+		<script type="text/javascript">
+			console.time('whole');
+
+			// create objects
+			var renderer = new Renderer(window.innerWidth, window.innerHeight),
+				ratio = 500, xoffset = 0, yoffset=0, zoffset=0,
+				camera = new Camera(),
+				scene = new Scene(),
+				floor = new Board()
+					.withDimension(3*ratio, 0.1*ratio, 5*ratio)
+					.at(0+xoffset, 0+yoffset, (5*ratio)+zoffset)
+					.using({materialDiffuse : '#FFF'}),
+				
+				kWallLeft = new Board()
+					.withDimension(0.1*ratio, 1.6*ratio, 3*ratio)
+					.at(-3*ratio+xoffset, (1.6*ratio)+yoffset, 3*ratio+zoffset)
+					.using({materialDiffuse : '#EEE'});
+					
+				kWallTop = new Board()
+					.withDimension(3*ratio, 1.6*ratio, 0.1*ratio)
+					.at(0*ratio+xoffset, 1.6*ratio+yoffset, 0*ratio+zoffset)
+					.using({materialDiffuse : '#EEE'});
+					
+				kWallRight = new Board()
+					.withDimension(0.1*ratio, 1.6*ratio, 5*ratio)
+					.at(3*ratio+xoffset, 1.6*ratio+yoffset, 5*ratio+zoffset)
+					.using({materialDiffuse : '#EEE'});
+					
+				kCounter1 = new Board()
+					.withDimension(0.8*ratio, 0.8*ratio, 2*ratio)
+					.at(2.1*ratio+xoffset, 0.9*ratio+yoffset, 2.3*ratio+zoffset)
+					.using({materialDiffuse : '#7f7950'});
+				
+				kSink = new Board()
+					.withDimension(0.8*ratio, 0.2*ratio, 0.8*ratio)
+					.at(0.5*ratio+xoffset, 1.4*ratio+yoffset, 1*ratio+zoffset)
+					.using({materialDiffuse : '#FFF'});
+				
+				kFaucet = new Board()
+					.withDimension(0.1*ratio, 0.1*ratio, 0.2*ratio)
+					.at(0.5*ratio+xoffset, 1.9*ratio+yoffset, 0.6*ratio+zoffset)
+					.using({materialDiffuse : '#000'});
+				
+				kCounter2 = new Board()
+					.withDimension(1.27*ratio, 0.8*ratio, 0.8*ratio)
+					.at(-1.6*ratio+xoffset, 0.9*ratio+yoffset, 1*ratio+zoffset)
+					.using({materialDiffuse : '#7f7950'});
+				
+				kRefBottom = new Board()
+					.withDimension(0.8*ratio, 1.2*ratio, 0.7*ratio)
+					.at(2.1*ratio+xoffset, 0.9*ratio+yoffset, 5*ratio+zoffset)
+					.using({materialDiffuse : '#FFF'});
+					
+				kRefTop = new Board()
+					.withDimension(0.8*ratio, 0.5*ratio, 0.7*ratio)
+					.at(2.1*ratio+xoffset, 2.6*ratio+yoffset, 5*ratio+zoffset)
+					.using({materialDiffuse : '#FFF'});
+				
+				kCounter3 = new Board()
+					.withDimension(0.8*ratio, 0.8*ratio, 0.8*ratio)
+					.at(2.1*ratio+xoffset, 0.9*ratio+yoffset, 6.5*ratio+zoffset)
+					.using({materialDiffuse : '#AAA'});
+				
+				
+				
+				pShelf2t = new Board()
+					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
+					.at(-3.1*ratio+xoffset, 1.6*ratio+yoffset, 6.3*ratio+zoffset)
+					.using({materialDiffuse : '#4f3f17'});
+					
+				pShelf2b = new Board()
+					.withDimension(1.3*ratio, 0.1*ratio, 0.4*ratio)
+					.at(-3.1*ratio+xoffset, 0.2*ratio+yoffset, 6.3*ratio+zoffset)
+					.using({materialDiffuse : '#4f3f17'});
+					
+				pShelf2l = new Board()
+					.withDimension(0.1*ratio, 0.7*ratio, 0.4*ratio)
+					.at(-1.9*ratio+xoffset, 1.0*ratio+yoffset, 6.3*ratio+zoffset)
+					.using({materialDiffuse : '#4f3f17'});
+					
+				pShelf2r = new Board()
+					.withDimension(0.1*ratio, 0.7*ratio, 0.4*ratio)
+					.at(-4.3*ratio+xoffset, 1*ratio+yoffset, 6.3*ratio+zoffset)
+					.using({materialDiffuse : '#4f3f17'});
+					
+			// add all objects here....
+
+			scene.addObject(floor);
+			
+			//scene.addObject(kWallLeft);
+			scene.addObject(kWallTop);
+			scene.addObject(kWallRight);
+			scene.addObject(kCounter1);
+			scene.addObject(kCounter2);
+			scene.addObject(kCounter3);
+			scene.addObject(kSink);
+			scene.addObject(kFaucet);
+			scene.addObject(kRefBottom);
+			scene.addObject(kRefTop);
+			//scene.addObject(pShelf2t);
+			//scene.addObject(pShelf2b);
+			//scene.addObject(pShelf2l);
+			//scene.addObject(pShelf2r);
+			
+			// append the canvas element
+			document.body.appendChild(renderer.domElement);
+
+			// render the graphics
+			renderer.render(scene, camera);
+
+			// listen for events
+			document.addEventListener('keydown', function (e) {
+				if (camera.move(e))
+					renderer.render();
+			});
+			document.addEventListener('mousewheel', function (e) {
+				if (camera.move(e))
+					renderer.render();
+			});
+			console.timeEnd('whole');
+		</script>
+	</body>
+</html>
